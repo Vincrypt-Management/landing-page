@@ -1,4 +1,6 @@
 function ProductShowcase() {
+  const demoVideo = `${import.meta.env.BASE_URL}flowfolio-demo.mp4`;
+
   return (
     <section className="landing-showcase">
       <div className="landing-showcase-container">
@@ -7,7 +9,7 @@ function ProductShowcase() {
           <div className="landing-showcase-inner">
             <video
               className="landing-showcase-video"
-              src="/flowfolio-demo.mp4"
+              src={demoVideo}
               autoPlay
               loop
               muted
