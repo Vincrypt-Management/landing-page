@@ -13,7 +13,6 @@ import {
   FileText,
   Menu,
   X,
-  ArrowLeft,
   Layers,
   Lock,
   Cpu,
@@ -90,7 +89,7 @@ function FeaturesPage() {
             {sidebarOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
           <a href="landing.html" className="features-back">
-            <ArrowLeft size={16} />
+            <img src="icon-only.png" alt="Flowfolio" className="features-logo-icon" />
             <span>Flowfolio</span>
           </a>
         </div>
@@ -1182,7 +1181,10 @@ PortfolioConfig {
         {/* Footer */}
         <footer className="features-footer">
           <div className="features-footer-content">
-            <span className="features-footer-brand">Flowfolio</span>
+            <span className="features-footer-brand">
+              <img src="icon-only.png" alt="Flowfolio" className="features-footer-icon" />
+              Flowfolio
+            </span>
             <span className="features-footer-tagline">
               Vibe-investing, but like vibe-coding.
             </span>

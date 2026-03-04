@@ -85,6 +85,12 @@ body {
   color: #00e599;
 }
 
+.features-logo-icon {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+}
+
 .features-back span {
   color: #ffffff;
 }
@@ -987,8 +993,17 @@ body {
 }
 
 .features-footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
   font-size: 0.9375rem;
   font-weight: 600;
+}
+
+.features-footer-icon {
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
 }
 
 .features-footer-tagline {

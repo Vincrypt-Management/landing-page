@@ -88,11 +88,20 @@ body {
 }
 
 .landing-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   font-size: 1.25rem;
   font-weight: 600;
   color: var(--landing-text-white);
   text-decoration: none;
   letter-spacing: -0.02em;
+}
+
+.landing-logo-icon {
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
 }
 
 .landing-nav-links {
@@ -629,10 +638,19 @@ body {
 }
 
 .landing-footer-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
   font-size: 1rem;
   font-weight: 600;
   color: var(--landing-text-white);
   letter-spacing: -0.01em;
+}
+
+.landing-footer-logo-icon {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
 }
 
 .landing-footer-tagline {

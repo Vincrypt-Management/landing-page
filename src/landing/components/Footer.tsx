@@ -5,7 +5,10 @@ function Footer() {
     <footer className="landing-footer">
       <div className="landing-footer-content">
         <div className="landing-footer-brand">
-          <span className="landing-footer-logo">Flowfolio</span>
+          <span className="landing-footer-logo">
+            <img src="icon-only.png" alt="Flowfolio" className="landing-footer-logo-icon" />
+            Flowfolio
+          </span>
           <span className="landing-footer-tagline">
             Made for privacy-conscious investors
           </span>
