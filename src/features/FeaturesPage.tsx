@@ -109,7 +109,10 @@ function FeaturesPage() {
       {/* Sidebar */}
       <aside className={`features-sidebar ${sidebarOpen ? "open" : ""}`}>
         <nav className="features-sidebar-nav">
-          <div className="features-sidebar-heading">Documentation</div>
+          <div className="features-sidebar-heading">
+            <img src="icon-only.png" alt="" className="features-sidebar-logo" />
+            Documentation
+          </div>
           {sections.map(({ id, label, icon }) => (
             <button
               key={id}
