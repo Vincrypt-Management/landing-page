@@ -1,30 +1,31 @@
 /* ============================================
    FLOWFOLIO LANDING PAGE STYLES
-   Navy Blue + Liquid Glass Design
+   Green + Purple Dark Theme + Liquid Glass Design
    ============================================ */
 
 /* CSS Variables */
 :root {
-  /* Navy Blue Color Scheme */
-  --landing-bg-darkest: #020617;     /* slate-950 */
-  --landing-bg-dark: #0f172a;        /* slate-900 */
-  --landing-bg-mid: #1e293b;         /* slate-800 */
-  --landing-bg-light: #334155;       /* slate-700 */
+  /* Dark Background Scheme */
+  --landing-bg-darkest: #050505;     /* Almost Black */
+  --landing-bg-dark: #0a0a0a;        /* Very Dark Gray */
+  --landing-bg-mid: #121212;         /* Dark Gray */
+  --landing-bg-light: #1a1a1a;       /* Active State Gray */
 
-  /* Navy Blue Accents */
-  --landing-accent-primary: #3b82f6;  /* blue-500 */
-  --landing-accent-light: #60a5fa;    /* blue-400 */
-  --landing-accent-dark: #1d4ed8;     /* blue-700 */
-  --landing-accent-glow: rgba(59, 130, 246, 0.5);
+  /* Green + Purple Accents */
+  --landing-accent-primary: #00e599;  /* Token Terminal Electric Green */
+  --landing-accent-light: #34ffc2;    /* Bright Green */
+  --landing-accent-dark: #00c281;     /* Hover Green */
+  --landing-accent-glow: rgba(0, 229, 153, 0.5);
+  --landing-accent-secondary: #6366f1; /* AI/Augment Purple */
 
   /* Text Colors */
-  --landing-text-white: #f8fafc;      /* slate-50 */
-  --landing-text-gray: #94a3b8;       /* slate-400 */
-  --landing-text-muted: #64748b;      /* slate-500 */
+  --landing-text-white: #ffffff;      /* Pure White */
+  --landing-text-gray: #a1a1aa;       /* Zinc 400 */
+  --landing-text-muted: #52525b;      /* Zinc 600 */
 
   /* Liquid Glass */
-  --landing-glass-bg: rgba(15, 23, 42, 0.6);
-  --landing-glass-border: rgba(148, 163, 184, 0.1);
+  --landing-glass-bg: rgba(10, 10, 10, 0.6);
+  --landing-glass-border: rgba(255, 255, 255, 0.08);
   --landing-glass-shine: rgba(255, 255, 255, 0.05);
 
   /* Spacing */
@@ -59,10 +60,10 @@ body {
   overflow-x: hidden;
   background: linear-gradient(
     180deg,
-    #0f172a 0%,
-    #0c1425 20%,
-    #081020 50%,
-    #020617 100%
+    #0a0a0a 0%,
+    #080808 20%,
+    #060606 50%,
+    #050505 100%
   );
 }
 
@@ -132,10 +133,9 @@ body {
 }
 
 .landing-nav-btn-outline:hover {
-  background: rgba(59, 130, 246, 0.1);
+  background: rgba(0, 229, 153, 0.1);
   border-color: var(--landing-accent-primary);
 }
-
 /* ============================================
    HERO SECTION
    ============================================ */
@@ -161,7 +161,7 @@ body {
   height: 400px;
   background: radial-gradient(
     ellipse at center,
-    rgba(59, 130, 246, 0.12) 0%,
+    rgba(0, 229, 153, 0.12) 0%,
     transparent 70%
   );
   pointer-events: none;
@@ -189,15 +189,15 @@ body {
   color: var(--landing-accent-light);
   text-decoration: none;
   border-radius: 100px;
-  background: rgba(59, 130, 246, 0.1);
-  border: 1px solid rgba(59, 130, 246, 0.3);
+  background: rgba(0, 229, 153, 0.1);
+  border: 1px solid rgba(0, 229, 153, 0.3);
   overflow: hidden;
   transition: all 0.3s ease;
 }
 
 .landing-badge:hover {
-  background: rgba(59, 130, 246, 0.15);
-  border-color: rgba(59, 130, 246, 0.5);
+  background: rgba(0, 229, 153, 0.15);
+  border-color: rgba(0, 229, 153, 0.5);
 }
 
 /* Animated shine effect */
@@ -305,7 +305,7 @@ body {
   border-color: rgba(255, 255, 255, 0.25);
   box-shadow:
     0 12px 40px rgba(0, 0, 0, 0.4),
-    0 0 30px rgba(59, 130, 246, 0.2),
+    0 0 30px rgba(0, 229, 153, 0.2),
     inset 0 1px 0 rgba(255, 255, 255, 0.15);
 }
 
@@ -353,12 +353,12 @@ body {
   padding: 1px;
   background: linear-gradient(
     135deg,
-    rgba(59, 130, 246, 0.3) 0%,
-    rgba(59, 130, 246, 0.1) 50%,
-    rgba(59, 130, 246, 0.3) 100%
+    rgba(0, 229, 153, 0.3) 0%,
+    rgba(0, 229, 153, 0.1) 50%,
+    rgba(0, 229, 153, 0.3) 100%
   );
   box-shadow:
-    0 0 80px rgba(59, 130, 246, 0.15),
+    0 0 80px rgba(0, 229, 153, 0.15),
     0 25px 60px -15px rgba(0, 0, 0, 0.5);
 }
 
@@ -378,8 +378,8 @@ body {
   color: var(--landing-text-muted);
   background: linear-gradient(
     135deg,
-    rgba(30, 41, 59, 0.5) 0%,
-    rgba(15, 23, 42, 0.8) 100%
+    rgba(18, 18, 18, 0.5) 0%,
+    rgba(10, 10, 10, 0.8) 100%
   );
 }
 
@@ -438,14 +438,14 @@ body {
 
 /* Feature Card - Liquid Glass */
 .landing-feature-card {
-  background: rgba(15, 23, 42, 0.6);
+  background: rgba(10, 10, 10, 0.6);
   backdrop-filter: blur(10px);
   padding: 2rem;
   transition: all 0.3s ease;
 }
 
 .landing-feature-card:hover {
-  background: rgba(30, 41, 59, 0.6);
+  background: rgba(26, 26, 26, 0.6);
 }
 
 .landing-feature-icon {
@@ -478,7 +478,7 @@ body {
    ============================================ */
 .landing-value-props {
   padding: 4rem 1.5rem;
-  background: rgba(15, 23, 42, 0.4);
+  background: rgba(10, 10, 10, 0.4);
   border-top: 1px solid var(--landing-glass-border);
   border-bottom: 1px solid var(--landing-glass-border);
 }
@@ -583,10 +583,10 @@ body {
     rgba(255, 255, 255, 0.12) 0%,
     rgba(255, 255, 255, 0.05) 100%
   );
-  border-color: rgba(59, 130, 246, 0.4);
+  border-color: rgba(0, 229, 153, 0.4);
   box-shadow:
     0 8px 32px rgba(0, 0, 0, 0.3),
-    0 0 20px rgba(59, 130, 246, 0.15),
+    0 0 20px rgba(0, 229, 153, 0.15),
     inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
