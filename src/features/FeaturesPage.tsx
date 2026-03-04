@@ -23,23 +23,30 @@ import {
   Cpu,
   Globe,
   Smartphone,
+  ArrowRight,
+  Rocket,
+  User,
+  Brain,
+  GitBranch,
+  Code,
+  MessageSquare,
 } from "lucide-react";
 
 const sections = [
-  { id: "overview", label: "Overview", icon: <Layers size={16} /> },
-  { id: "vibe-studio", label: "Vibe Studio", icon: <Sparkles size={16} /> },
-  { id: "rankings", label: "Explainable Rankings", icon: <TrendingUp size={16} /> },
-  { id: "portfolio", label: "Portfolio Management", icon: <PieChart size={16} /> },
-  { id: "backtest", label: "Backtest Lab", icon: <FlaskConical size={16} /> },
-  { id: "journal", label: "Investment Journal", icon: <BookOpen size={16} /> },
-  { id: "quant", label: "Quantitative Analysis", icon: <BarChart3 size={16} /> },
-  { id: "data", label: "Data Integration", icon: <Database size={16} /> },
-  { id: "privacy", label: "Privacy & Security", icon: <Shield size={16} /> },
-  { id: "platforms", label: "Platform Support", icon: <Monitor size={16} /> },
+  { id: "prologue", label: "The Problem", icon: <Layers size={16} /> },
+  { id: "vision", label: "The Vision", icon: <Sparkles size={16} /> },
+  { id: "chapter-1", label: "1. Compose Your Plan", icon: <Code size={16} /> },
+  { id: "chapter-2", label: "2. See Why It Works", icon: <TrendingUp size={16} /> },
+  { id: "chapter-3", label: "3. Execute Monthly", icon: <PieChart size={16} /> },
+  { id: "chapter-4", label: "4. Test Your Thesis", icon: <FlaskConical size={16} /> },
+  { id: "chapter-5", label: "5. Journal the Journey", icon: <BookOpen size={16} /> },
+  { id: "chapter-6", label: "6. Go Deep", icon: <BarChart3 size={16} /> },
+  { id: "foundation", label: "The Foundation", icon: <Shield size={16} /> },
+  { id: "roadmap", label: "What's Next", icon: <Rocket size={16} /> },
 ];
 
 function FeaturesPage() {
-  const [activeSection, setActiveSection] = useState("overview");
+  const [activeSection, setActiveSection] = useState("prologue");
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   useEffect(() => {
@@ -84,7 +91,7 @@ function FeaturesPage() {
             <span>Flowfolio</span>
           </a>
         </div>
-        <span className="features-topbar-title">Features</span>
+        <span className="features-topbar-title">The Story</span>
         <div className="features-topbar-right">
           <a
             href="https://github.com/Vincrypt-Management/flowfolio"
@@ -100,7 +107,7 @@ function FeaturesPage() {
       {/* Sidebar */}
       <aside className={`features-sidebar ${sidebarOpen ? "open" : ""}`}>
         <nav className="features-sidebar-nav">
-          <div className="features-sidebar-heading">Documentation</div>
+          <div className="features-sidebar-heading">The Flowfolio Story</div>
           {sections.map(({ id, label, icon }) => (
             <button
               key={id}
@@ -115,7 +122,7 @@ function FeaturesPage() {
         </nav>
 
         <div className="features-sidebar-footer">
-          <a href="#download" className="features-sidebar-cta">
+          <a href="landing.html#download" className="features-sidebar-cta">
             Download Flowfolio
           </a>
         </div>
@@ -128,455 +135,547 @@ function FeaturesPage() {
 
       {/* Main Content */}
       <main className="features-content">
-        {/* Overview */}
-        <section id="overview" className="features-section">
-          <div className="features-section-badge">
-            <Layers size={14} />
-            Overview
-          </div>
-          <h1 className="features-section-title">
-            Privacy-First Portfolio Intelligence
+
+        {/* ===== PROLOGUE: THE PROBLEM ===== */}
+        <section id="prologue" className="features-section features-section-hero">
+          <p className="features-chapter-label">Prologue</p>
+          <h1 className="features-section-title features-title-large">
+            Investing shouldn't require<br />
+            <span className="features-gradient-text">blind trust.</span>
           </h1>
-          <p className="features-section-lead">
-            Flowfolio is a professional-grade investment platform that runs
-            entirely on your machine. Build explainable strategies, track
-            portfolios, and backtest ideas — all without sending a single byte
-            of data to the cloud.
+          <p className="features-section-lead features-lead-large">
+            You hand your portfolio data to cloud apps. You follow opaque
+            recommendations from algorithms you can't inspect. You make
+            decisions based on gut feel, then forget why you made them three
+            months later.
+          </p>
+          <div className="features-problem-grid">
+            <div className="features-problem-card">
+              <span className="features-problem-emoji">☁️</span>
+              <h4>Cloud-dependent</h4>
+              <p>Your financial data lives on someone else's servers. You hope they're trustworthy.</p>
+            </div>
+            <div className="features-problem-card">
+              <span className="features-problem-emoji">🔮</span>
+              <h4>Opaque decisions</h4>
+              <p>"Buy this stock." Why? The algorithm doesn't explain. You just click.</p>
+            </div>
+            <div className="features-problem-card">
+              <span className="features-problem-emoji">📉</span>
+              <h4>No system</h4>
+              <p>Every month is a fresh panic. No rules, no process, no memory of what worked.</p>
+            </div>
+          </div>
+          <div className="features-transition">
+            <p>We built Flowfolio because we were tired of this.</p>
+            <button onClick={() => scrollTo("vision")} className="features-scroll-hint">
+              <ArrowRight size={16} />
+            </button>
+          </div>
+        </section>
+
+        {/* ===== THE VISION ===== */}
+        <section id="vision" className="features-section">
+          <p className="features-chapter-label">The Vision</p>
+          <h2 className="features-section-title features-title-large">
+            Vibe-investing, like<br />
+            <span className="features-gradient-text">vibe-coding.</span>
+          </h2>
+          <p className="features-section-lead features-lead-large">
+            What if you could "program" your investing strategy — describe your
+            thesis in plain language, compile it into rules, and let the system
+            tell you exactly what to do each month? All running on your machine.
+            No cloud. No tracking. No black boxes.
           </p>
 
-          <div className="features-highlights">
-            <div className="features-highlight-card">
-              <Zap size={20} />
-              <h3>Local-First</h3>
-              <p>100% offline operation. Your data never leaves your device.</p>
+          <div className="features-vision-flow">
+            <div className="features-flow-step">
+              <div className="features-flow-number">1</div>
+              <h4>Compose</h4>
+              <p>Describe your strategy. The compiler turns it into rules.</p>
             </div>
-            <div className="features-highlight-card">
-              <Target size={20} />
-              <h3>Factor-Based</h3>
-              <p>Multi-factor scoring with quality, value, growth, and momentum.</p>
+            <div className="features-flow-arrow"><ArrowRight size={16} /></div>
+            <div className="features-flow-step">
+              <div className="features-flow-number">2</div>
+              <h4>Rank</h4>
+              <p>Factors score every stock. You see exactly why.</p>
             </div>
-            <div className="features-highlight-card">
-              <RefreshCw size={20} />
-              <h3>Rule-Based</h3>
-              <p>Systematic strategies with automated buy lists and rebalancing.</p>
+            <div className="features-flow-arrow"><ArrowRight size={16} /></div>
+            <div className="features-flow-step">
+              <div className="features-flow-number">3</div>
+              <h4>Execute</h4>
+              <p>Monthly buy lists. Quarterly rebalance. Yearly review.</p>
+            </div>
+            <div className="features-flow-arrow"><ArrowRight size={16} /></div>
+            <div className="features-flow-step">
+              <div className="features-flow-number">4</div>
+              <h4>Learn</h4>
+              <p>Journal every decision. Backtest every thesis. Evolve.</p>
             </div>
           </div>
         </section>
 
-        {/* Vibe Studio */}
-        <section id="vibe-studio" className="features-section">
+        {/* ===== CHAPTER 1: VIBE STUDIO ===== */}
+        <section id="chapter-1" className="features-section">
           <div className="features-section-badge">
             <Sparkles size={14} />
-            Strategy Creation
+            Chapter 1
           </div>
-          <h2 className="features-section-title">Vibe Studio</h2>
+          <h2 className="features-section-title">
+            Compose your investing program.
+          </h2>
           <p className="features-section-lead">
-            Design investment strategies using natural language prompts or
-            pre-built templates. Vibe Studio compiles your intent into a
-            validated, rule-based plan.
+            Vibe Studio is where your strategy comes to life. Describe what you
+            want in natural language — or pick a template — and the plan
+            compiler transforms it into a validated, executable ruleset.
           </p>
+
+          <div className="features-code-block">
+            <div className="features-code-header">
+              <span className="features-code-dot" style={{ background: "#ef4444" }}></span>
+              <span className="features-code-dot" style={{ background: "#f59e0b" }}></span>
+              <span className="features-code-dot" style={{ background: "#00e599" }}></span>
+              <span className="features-code-title">VibeScript — compiled from your prompt</span>
+            </div>
+            <pre className="features-code-content">
+{`{
+  "strategy": "Quality Compounders",
+  "universe": ["US Large Cap", "US Mid Cap"],
+  "factors": {
+    "quality": 0.35,   // ROE, margins, low leverage
+    "growth": 0.25,    // Revenue + earnings trends
+    "value": 0.20,     // Normalized P/E, P/B
+    "momentum": 0.20   // 12-month price momentum
+  },
+  "constraints": {
+    "max_position": "5%",
+    "sector_cap": "25%",
+    "rebalance": "quarterly"
+  },
+  "cadence": {
+    "monthly": "buy underweight + highest conviction",
+    "quarterly": "rebalance if drift > 5%",
+    "yearly": "thesis review + factor refactor"
+  }
+}`}
+            </pre>
+          </div>
 
           <div className="features-detail-grid">
             <div className="features-detail-card">
-              <h4>Natural Language Strategies</h4>
+              <h4>6 Pre-Built Templates</h4>
               <p>
-                Describe your investment thesis in plain English. Vibe Studio
-                converts it into a structured VibeScript plan with factor
-                weights, sector caps, and allocation rules.
-              </p>
-            </div>
-            <div className="features-detail-card">
-              <h4>Pre-Built Templates</h4>
-              <p>
-                Start with templates like Growth, Value, Balanced, Dividend
-                Calm, Quality Compounders, or AI Picks & Shovels. Customize
-                them to match your style.
+                Growth, Value, Balanced, Dividend Calm, Quality Compounders,
+                AI Picks & Shovels. Each one is a starting point, not a cage.
               </p>
             </div>
             <div className="features-detail-card">
               <h4>Real-Time Validation</h4>
               <p>
-                Every plan is validated in real-time — weights must sum
-                correctly, position limits are enforced, and sector caps are
-                checked before compilation.
+                Weights must sum correctly. Position limits enforced. Sector
+                caps checked. Invalid plans don't compile.
+              </p>
+            </div>
+            <div className="features-detail-card">
+              <h4>Version Control</h4>
+              <p>
+                Every edit creates a version. See diffs between iterations.
+                Roll back to any previous plan like reverting a commit.
               </p>
             </div>
             <div className="features-detail-card">
               <h4>Advanced Mode</h4>
               <p>
-                Switch to manual rule editing with code-like diffs and
-                versioning. See exactly what changed between plan iterations.
+                Power users can edit rules directly. See the raw VibeScript,
+                modify constraints, and test compilation manually.
               </p>
             </div>
           </div>
         </section>
 
-        {/* Rankings */}
-        <section id="rankings" className="features-section">
+        {/* ===== CHAPTER 2: RANKINGS ===== */}
+        <section id="chapter-2" className="features-section">
           <div className="features-section-badge">
             <TrendingUp size={14} />
-            Factor Analysis
+            Chapter 2
           </div>
-          <h2 className="features-section-title">Explainable Rankings</h2>
+          <h2 className="features-section-title">
+            See why every stock made the cut.
+          </h2>
           <p className="features-section-lead">
-            Understand exactly why each stock made the cut. Every ranking comes
-            with a detailed factor breakdown showing contribution from each
-            scoring dimension.
+            No black boxes. Every ranking shows the exact factor breakdown —
+            what scored high, what scored low, and how each dimension
+            contributed to the final result.
           </p>
 
           <div className="features-factor-grid">
             {[
-              { name: "Quality", desc: "ROE/ROIC proxies, margin stability, leverage constraints" },
-              { name: "Growth", desc: "Revenue and earnings trends, growth consistency" },
-              { name: "Value", desc: "Normalized multiples — P/E, P/B, and earnings yield" },
-              { name: "Momentum", desc: "Long-horizon price momentum, not intraday noise" },
-              { name: "Size", desc: "Market capitalization factors and small-cap premium" },
-              { name: "Volatility", desc: "Price stability metrics and drawdown history" },
+              { name: "Quality", value: "35%", desc: "ROE/ROIC, margin stability, low leverage" },
+              { name: "Growth", value: "25%", desc: "Revenue & earnings trends, consistency" },
+              { name: "Value", value: "20%", desc: "Normalized P/E, P/B, earnings yield" },
+              { name: "Momentum", value: "20%", desc: "12-month price momentum, not day-trading" },
+              { name: "Size", value: "adj.", desc: "Market cap factors, small-cap premium" },
+              { name: "Volatility", value: "adj.", desc: "Price stability, drawdown history" },
             ].map((factor) => (
               <div key={factor.name} className="features-factor-card">
-                <h4>{factor.name}</h4>
+                <div className="features-factor-header">
+                  <h4>{factor.name}</h4>
+                  <span className="features-factor-weight">{factor.value}</span>
+                </div>
                 <p>{factor.desc}</p>
               </div>
             ))}
           </div>
 
           <div className="features-callout">
-            <strong>Why included / excluded?</strong> Every symbol comes with a
-            detailed explanation of why it passed or failed each filter in your
-            strategy pipeline.
+            <strong>"Why included?"</strong> — Every symbol comes with a trace:
+            which filters it passed, which factors scored highest, and its
+            normalized contribution to your portfolio thesis.
           </div>
         </section>
 
-        {/* Portfolio */}
-        <section id="portfolio" className="features-section">
+        {/* ===== CHAPTER 3: PORTFOLIO ===== */}
+        <section id="chapter-3" className="features-section">
           <div className="features-section-badge">
             <PieChart size={14} />
-            Portfolio Tools
+            Chapter 3
           </div>
-          <h2 className="features-section-title">Portfolio Management</h2>
+          <h2 className="features-section-title">
+            Every month, you know exactly what to buy.
+          </h2>
           <p className="features-section-lead">
-            Track your holdings, monitor allocation drift, and generate
-            conviction-ranked buy lists automatically every month.
+            Flowfolio watches your portfolio drift and generates a
+            conviction-ranked buy list every month. No guessing. No FOMO.
+            Just your rules, applied systematically.
           </p>
 
+          <div className="features-cadence-timeline">
+            <div className="features-cadence-item">
+              <div className="features-cadence-marker monthly"></div>
+              <div className="features-cadence-content">
+                <h4>Monthly</h4>
+                <p>
+                  New contributions allocated to the most underweight
+                  positions with the highest conviction scores.
+                </p>
+              </div>
+            </div>
+            <div className="features-cadence-item">
+              <div className="features-cadence-marker quarterly"></div>
+              <div className="features-cadence-content">
+                <h4>Quarterly</h4>
+                <p>
+                  If drift exceeds your threshold, a rebalance is triggered.
+                  You see exactly which positions to trim and which to add.
+                </p>
+              </div>
+            </div>
+            <div className="features-cadence-item">
+              <div className="features-cadence-marker yearly"></div>
+              <div className="features-cadence-content">
+                <h4>Yearly</h4>
+                <p>
+                  Full thesis review. Factor drift detection. The system
+                  suggests plan refactoring points — like code refactoring,
+                  but for your investment strategy.
+                </p>
+              </div>
+            </div>
+          </div>
+
           <div className="features-detail-grid">
-            <div className="features-detail-card">
-              <h4>Holdings Tracker</h4>
-              <p>
-                Manage current positions with manual cost basis, share counts,
-                and real-time price updates from 8 data providers.
-              </p>
-            </div>
-            <div className="features-detail-card">
-              <h4>Drift Analysis</h4>
-              <p>
-                Compare target vs actual allocation in real-time. Automatically
-                detect when drift exceeds your rebalance threshold.
-              </p>
-            </div>
-            <div className="features-detail-card">
-              <h4>Buy List Generator</h4>
-              <p>
-                Generate monthly buy lists ranked by conviction. See which
-                positions are most underweight and need contributions.
-              </p>
-            </div>
             <div className="features-detail-card">
               <h4>Allocation Methods</h4>
-              <p>
-                Choose between equal-weight, factor-weighted, or risk-parity
-                allocation. Set max position sizes and sector caps.
-              </p>
+              <p>Equal-weight, factor-weighted, or risk-parity. Max position sizing and sector caps enforced automatically.</p>
+            </div>
+            <div className="features-detail-card">
+              <h4>Real-Time Drift</h4>
+              <p>Target vs actual allocation updated with live prices from 8 data providers. See concentration risk at a glance.</p>
             </div>
           </div>
         </section>
 
-        {/* Backtest */}
-        <section id="backtest" className="features-section">
+        {/* ===== CHAPTER 4: BACKTEST ===== */}
+        <section id="chapter-4" className="features-section">
           <div className="features-section-badge">
             <FlaskConical size={14} />
-            Historical Simulation
+            Chapter 4
           </div>
-          <h2 className="features-section-title">Backtest Lab</h2>
+          <h2 className="features-section-title">
+            Test your thesis before you commit real money.
+          </h2>
           <p className="features-section-lead">
-            Simulate your strategies across years of historical data. All
-            computation runs locally — no data leaves your machine.
+            The Backtest Lab simulates your strategy across years of historical
+            data — with monthly contributions, rebalance rules, and realistic
+            cadence. All computed locally on your machine.
           </p>
 
-          <div className="features-detail-grid">
-            <div className="features-detail-card">
-              <h4>Cadence-Based Simulation</h4>
-              <p>
-                Run monthly, quarterly, or yearly strategy backtests with
-                configurable rebalance rules and contribution schedules.
-              </p>
-            </div>
-            <div className="features-detail-card">
-              <h4>DCA Simulation</h4>
-              <p>
-                Simulate Dollar-Cost Averaging with monthly contributions.
-                See how systematic investing compounds over time.
-              </p>
-            </div>
-            <div className="features-detail-card">
-              <h4>Comprehensive Metrics</h4>
-              <p>
-                CAGR, total return, max drawdown, volatility, Sharpe ratio,
-                and turnover estimates — all computed automatically.
-              </p>
-            </div>
-            <div className="features-detail-card">
-              <h4>Strategy Comparison</h4>
-              <p>
-                Run multiple backtests side-by-side. Compare how different
-                factor weights and rules affect long-term outcomes.
-              </p>
-            </div>
+          <div className="features-metrics-row">
+            {[
+              { label: "CAGR", desc: "Compound annual growth rate" },
+              { label: "Max Drawdown", desc: "Worst peak-to-trough decline" },
+              { label: "Sharpe Ratio", desc: "Risk-adjusted return" },
+              { label: "Volatility", desc: "Annualized standard deviation" },
+              { label: "Turnover", desc: "Trading frequency impact" },
+            ].map((m) => (
+              <div key={m.label} className="features-metric-card">
+                <h4>{m.label}</h4>
+                <p>{m.desc}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="features-callout">
+            <strong>Fully offline.</strong> Once market data is cached, backtests
+            run entirely on your CPU. No internet required. No data sent
+            anywhere.
           </div>
         </section>
 
-        {/* Journal */}
-        <section id="journal" className="features-section">
+        {/* ===== CHAPTER 5: JOURNAL ===== */}
+        <section id="chapter-5" className="features-section">
           <div className="features-section-badge">
             <BookOpen size={14} />
-            Decision Tracking
+            Chapter 5
           </div>
-          <h2 className="features-section-title">Investment Journal</h2>
+          <h2 className="features-section-title">
+            Your future self will thank you.
+          </h2>
           <p className="features-section-lead">
-            Document every investment decision with context. Track thesis
-            updates, market notes, and plan changes over time.
+            Every decision you make is logged with context — what you bought,
+            why you bought it, what the market looked like, and which version
+            of your plan was active. When you look back in a year, you won't
+            be guessing.
           </p>
 
-          <div className="features-detail-grid">
-            <div className="features-detail-card">
-              <h4>Multiple Entry Types</h4>
-              <p>
-                Log reflections, buy/sell decisions, reviews, rebalances, and
-                strategy changes. Each type is tagged and searchable.
-              </p>
-            </div>
-            <div className="features-detail-card">
-              <h4>Plan Version Snapshots</h4>
-              <p>
-                Every journal entry captures a snapshot of your plan. See
-                code-like diffs between versions and roll back if needed.
-              </p>
-            </div>
-            <div className="features-detail-card">
-              <h4>Timeline & Statistics</h4>
-              <p>
-                View decisions on a timeline. Analyze entry frequency by type,
-                common tags, and decision patterns over months and years.
-              </p>
-            </div>
+          <div className="features-journal-types">
+            {[
+              { type: "Reflection", color: "#607d8b", desc: "Market context and thesis thinking" },
+              { type: "Buy", color: "#22c55e", desc: "Purchase decisions with rationale" },
+              { type: "Sell", color: "#f97316", desc: "Exit decisions and reasoning" },
+              { type: "Review", color: "#4caf50", desc: "Periodic strategy assessment" },
+              { type: "Rebalance", color: "#9c27b0", desc: "Portfolio adjustment records" },
+              { type: "Strategy", color: "#ff9800", desc: "Plan changes and version diffs" },
+            ].map((entry) => (
+              <div key={entry.type} className="features-journal-type" style={{ borderColor: entry.color }}>
+                <span className="features-journal-dot" style={{ background: entry.color }}></span>
+                <div>
+                  <h4>{entry.type}</h4>
+                  <p>{entry.desc}</p>
+                </div>
+              </div>
+            ))}
           </div>
         </section>
 
-        {/* Quant */}
-        <section id="quant" className="features-section">
+        {/* ===== CHAPTER 6: QUANT ===== */}
+        <section id="chapter-6" className="features-section">
           <div className="features-section-badge">
             <BarChart3 size={14} />
-            Deep Analytics
+            Chapter 6
           </div>
-          <h2 className="features-section-title">Quantitative Analysis</h2>
+          <h2 className="features-section-title">
+            When you want to go deeper.
+          </h2>
           <p className="features-section-lead">
-            Professional-grade technical and statistical analysis tools for
-            every symbol in your universe.
+            The Quantitative Analysis dashboard gives you professional-grade
+            tools — RSI, MACD, Bollinger Bands, correlation heatmaps, and
+            factor drill-downs for every symbol in your universe.
           </p>
 
           <div className="features-detail-grid">
             <div className="features-detail-card">
               <h4>Technical Indicators</h4>
-              <p>
-                RSI, MACD, Bollinger Bands, and moving averages — all
-                computed locally with interactive charting.
-              </p>
+              <p>RSI, MACD, Bollinger Bands, and moving averages — computed locally with interactive charting.</p>
             </div>
             <div className="features-detail-card">
-              <h4>Correlation Analysis</h4>
-              <p>
-                Heatmap visualization of portfolio correlation. Identify
-                concentration risk and diversification opportunities.
-              </p>
+              <h4>Correlation Heatmaps</h4>
+              <p>Visualize portfolio correlation. Find hidden concentration risk and diversification gaps.</p>
             </div>
             <div className="features-detail-card">
               <h4>Factor Drill-Down</h4>
-              <p>
-                Inspect raw values and normalized scores for every factor.
-                Understand exactly how each score was computed.
-              </p>
+              <p>Raw values, normalized scores, and factor contribution for every ranked symbol.</p>
+            </div>
+            <div className="features-detail-card">
+              <h4>Statistical Analysis</h4>
+              <p>Distribution analysis, return profiles, and risk metrics — all the data, no hand-waving.</p>
             </div>
           </div>
         </section>
 
-        {/* Data */}
-        <section id="data" className="features-section">
-          <div className="features-section-badge">
-            <Database size={14} />
-            Market Data
-          </div>
-          <h2 className="features-section-title">Data Integration</h2>
-          <p className="features-section-lead">
-            Connect to 8 market data providers with intelligent failover,
-            rate limiting, and 3-tier caching — all managed automatically.
-          </p>
+        {/* ===== THE FOUNDATION ===== */}
+        <section id="foundation" className="features-section">
+          <p className="features-chapter-label">The Foundation</p>
+          <h2 className="features-section-title features-title-large">
+            Built on <span className="features-gradient-text">principles,</span><br />
+            not compromises.
+          </h2>
 
-          <div className="features-providers">
-            <div className="features-provider-tier">
-              <h4>
-                <span className="features-tier-badge tier-1">Tier 1</span>
-                Priority Providers
-              </h4>
-              <div className="features-provider-list">
-                <div className="features-provider">
-                  <strong>Alpaca Markets</strong>
-                  <span>Free, unlimited basic data</span>
-                </div>
-                <div className="features-provider">
-                  <strong>Yahoo Finance</strong>
-                  <span>Fallback, no API key required</span>
-                </div>
-              </div>
+          <div className="features-foundation-grid">
+            <div className="features-foundation-card">
+              <Lock size={22} />
+              <h4>Local-First</h4>
+              <p>100% local data storage. Zero cloud dependencies. No telemetry. Your financial data never leaves your device.</p>
             </div>
-
-            <div className="features-provider-tier">
-              <h4>
-                <span className="features-tier-badge tier-2">Tier 2</span>
-                Generous Free Tier
-              </h4>
-              <div className="features-provider-list">
-                <div className="features-provider">
-                  <strong>Finnhub</strong>
-                  <span>60 calls/min</span>
-                </div>
-                <div className="features-provider">
-                  <strong>Tiingo</strong>
-                  <span>500 calls/hour</span>
-                </div>
-                <div className="features-provider">
-                  <strong>Twelve Data</strong>
-                  <span>800 calls/day</span>
-                </div>
-                <div className="features-provider">
-                  <strong>FMP</strong>
-                  <span>250 calls/day</span>
-                </div>
-              </div>
+            <div className="features-foundation-card">
+              <Shield size={22} />
+              <h4>Encrypted Secrets</h4>
+              <p>API keys stored in Tauri Stronghold — an encrypted local vault. The frontend never touches your credentials.</p>
             </div>
-
-            <div className="features-provider-tier">
-              <h4>
-                <span className="features-tier-badge tier-3">Tier 3</span>
-                Limited Free Tier
-              </h4>
-              <div className="features-provider-list">
-                <div className="features-provider">
-                  <strong>Alpha Vantage</strong>
-                  <span>5 calls/min</span>
-                </div>
-                <div className="features-provider">
-                  <strong>Polygon.io</strong>
-                  <span>5 calls/min</span>
-                </div>
-              </div>
+            <div className="features-foundation-card">
+              <Cpu size={22} />
+              <h4>Local Compute</h4>
+              <p>All factor scoring, backtesting, and analysis runs on your CPU. No server calls. No cloud compute fees.</p>
             </div>
-          </div>
-
-          <div className="features-callout">
-            <strong>Intelligent Failover:</strong> Health-based routing, circuit
-            breakers, exponential backoff, and request deduplication ensure you
-            always get data — even when individual providers go down.
-          </div>
-        </section>
-
-        {/* Privacy */}
-        <section id="privacy" className="features-section">
-          <div className="features-section-badge">
-            <Shield size={14} />
-            Security
-          </div>
-          <h2 className="features-section-title">Privacy & Security</h2>
-          <p className="features-section-lead">
-            Flowfolio is built with a zero-trust architecture. Your financial
-            data stays on your machine, encrypted at rest.
-          </p>
-
-          <div className="features-detail-grid">
-            <div className="features-detail-card">
-              <Lock size={20} className="features-detail-icon" />
-              <h4>Encrypted Storage</h4>
-              <p>
-                API keys stored in Tauri Stronghold (encrypted local vault).
-                Portfolio data in local SQLite — never transmitted.
-              </p>
-            </div>
-            <div className="features-detail-card">
-              <Cpu size={20} className="features-detail-icon" />
-              <h4>Local Computation</h4>
-              <p>
-                All factor scoring, backtesting, and analysis runs on your
-                CPU. No cloud compute, no server calls.
-              </p>
-            </div>
-            <div className="features-detail-card">
-              <Shield size={20} className="features-detail-icon" />
-              <h4>Security Hardening</h4>
-              <p>
-                Strict CSP headers, minimal Tauri capabilities, command
-                allowlisting, and no remote script loading.
-              </p>
-            </div>
-            <div className="features-detail-card">
-              <Globe size={20} className="features-detail-icon" />
+            <div className="features-foundation-card">
+              <Globe size={22} />
               <h4>Offline Mode</h4>
-              <p>
-                Fully functional without internet. Work with cached data
-                anytime, anywhere — no connectivity required.
-              </p>
+              <p>Fully functional without internet. View, analyze, journal, and backtest on cached data anywhere.</p>
+            </div>
+          </div>
+
+          <div className="features-data-section">
+            <h3>8 Data Providers, One Intelligent Layer</h3>
+            <p className="features-section-lead">
+              Flowfolio connects to 8 market data sources with automatic
+              failover, rate limiting, circuit breakers, and 3-tier caching.
+              You bring your own API keys — we never store or transmit them.
+            </p>
+
+            <div className="features-providers-compact">
+              <div className="features-provider-group">
+                <span className="features-tier-badge tier-1">Tier 1</span>
+                <span>Alpaca Markets</span>
+                <span className="features-provider-sep">·</span>
+                <span>Yahoo Finance</span>
+              </div>
+              <div className="features-provider-group">
+                <span className="features-tier-badge tier-2">Tier 2</span>
+                <span>Finnhub</span>
+                <span className="features-provider-sep">·</span>
+                <span>Tiingo</span>
+                <span className="features-provider-sep">·</span>
+                <span>Twelve Data</span>
+                <span className="features-provider-sep">·</span>
+                <span>FMP</span>
+              </div>
+              <div className="features-provider-group">
+                <span className="features-tier-badge tier-3">Tier 3</span>
+                <span>Alpha Vantage</span>
+                <span className="features-provider-sep">·</span>
+                <span>Polygon.io</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="features-platforms-row">
+            {[
+              { icon: <Monitor size={24} />, name: "Windows" },
+              { icon: <Monitor size={24} />, name: "macOS" },
+              { icon: <Monitor size={24} />, name: "Linux" },
+              { icon: <Smartphone size={24} />, name: "Android" },
+            ].map((p) => (
+              <div key={p.name} className="features-platform-pill">
+                {p.icon}
+                <span>{p.name}</span>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* ===== ROADMAP ===== */}
+        <section id="roadmap" className="features-section">
+          <p className="features-chapter-label">What's Next</p>
+          <h2 className="features-section-title features-title-large">
+            The story is just <span className="features-gradient-text">getting started.</span>
+          </h2>
+          <p className="features-section-lead features-lead-large">
+            Flowfolio is evolving fast. Here's what's on the horizon — the
+            features that will take it from a powerful local tool to a
+            complete investment platform.
+          </p>
+
+          <div className="features-roadmap-timeline">
+            <div className="features-roadmap-item">
+              <div className="features-roadmap-marker coming-soon"></div>
+              <div className="features-roadmap-content">
+                <span className="features-roadmap-label">Coming Soon</span>
+                <h4><User size={16} /> Account & Login</h4>
+                <p>
+                  Optional account system for syncing preferences and plans
+                  across devices. Your portfolio data stays local — only your
+                  configuration travels.
+                </p>
+              </div>
+            </div>
+
+            <div className="features-roadmap-item">
+              <div className="features-roadmap-marker coming-soon"></div>
+              <div className="features-roadmap-content">
+                <span className="features-roadmap-label">Coming Soon</span>
+                <h4><Brain size={16} /> Latest AI Model Support</h4>
+                <p>
+                  Connect to the latest language models for smarter strategy
+                  generation, natural language plan compilation, and AI-powered
+                  portfolio insights. Local LLM adapter available for fully
+                  offline operation.
+                </p>
+              </div>
+            </div>
+
+            <div className="features-roadmap-item">
+              <div className="features-roadmap-marker coming-soon"></div>
+              <div className="features-roadmap-content">
+                <span className="features-roadmap-label">Coming Soon</span>
+                <h4><GitBranch size={16} /> Flow Support</h4>
+                <p>
+                  Visual flow builder for creating complex investment
+                  workflows. Chain strategy steps, data sources, and
+                  decision logic into reusable, shareable flows — like
+                  visual programming for your portfolio.
+                </p>
+              </div>
+            </div>
+
+            <div className="features-roadmap-item">
+              <div className="features-roadmap-marker future"></div>
+              <div className="features-roadmap-content">
+                <span className="features-roadmap-label future-label">On the Horizon</span>
+                <h4><MessageSquare size={16} /> Community Strategies</h4>
+                <p>
+                  Share and discover VibePlans from other investors. Import
+                  community templates, compare approaches, and learn from
+                  real strategies — all while keeping your data private.
+                </p>
+              </div>
+            </div>
+
+            <div className="features-roadmap-item">
+              <div className="features-roadmap-marker future"></div>
+              <div className="features-roadmap-content">
+                <span className="features-roadmap-label future-label">On the Horizon</span>
+                <h4><Smartphone size={16} /> iOS App</h4>
+                <p>
+                  Native iOS support to complete the mobile experience.
+                  Same privacy guarantees, same local-first architecture,
+                  in your pocket.
+                </p>
+              </div>
             </div>
           </div>
         </section>
 
-        {/* Platforms */}
-        <section id="platforms" className="features-section">
-          <div className="features-section-badge">
-            <Monitor size={14} />
-            Availability
-          </div>
-          <h2 className="features-section-title">Platform Support</h2>
-          <p className="features-section-lead">
-            Available on desktop and mobile. Same privacy guarantees on every
-            platform.
-          </p>
-
-          <div className="features-platforms-grid">
-            <div className="features-platform-card">
-              <Monitor size={28} />
-              <h4>Windows</h4>
-              <p>Native installer</p>
-            </div>
-            <div className="features-platform-card">
-              <Monitor size={28} />
-              <h4>macOS</h4>
-              <p>Universal binary</p>
-            </div>
-            <div className="features-platform-card">
-              <Monitor size={28} />
-              <h4>Linux</h4>
-              <p>AppImage</p>
-            </div>
-            <div className="features-platform-card">
-              <Smartphone size={28} />
-              <h4>Android</h4>
-              <p>APK available</p>
-            </div>
-          </div>
-
-          <div className="features-cta-section" id="download">
-            <h3>Ready to take control of your portfolio?</h3>
-            <p>Download Flowfolio and start building strategies today.</p>
+        {/* ===== CTA ===== */}
+        <section className="features-section">
+          <div className="features-cta-section">
+            <h3>Ready to invest with intention?</h3>
+            <p>
+              Stop guessing. Start composing. Download Flowfolio and build
+              your first strategy in minutes.
+            </p>
             <a href="landing.html#download" className="features-cta-btn">
-              Download Now
+              Download Flowfolio
+              <ArrowRight size={16} />
             </a>
           </div>
         </section>
@@ -586,7 +685,7 @@ function FeaturesPage() {
           <div className="features-footer-content">
             <span className="features-footer-brand">Flowfolio</span>
             <span className="features-footer-tagline">
-              Made for privacy-conscious investors
+              Vibe-investing, but like vibe-coding.
             </span>
           </div>
           <div className="features-footer-links">
