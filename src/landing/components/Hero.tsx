@@ -1,4 +1,4 @@
-import { Monitor, Apple, Terminal } from "lucide-react";
+import { Monitor, Apple, Terminal, Smartphone } from "lucide-react";
 
 function Hero() {
   return (
@@ -38,6 +38,9 @@ function Hero() {
             </a>
             <a href="#download" title="Linux">
               <Terminal size={28} />
+            </a>
+            <a href="#download" title="Android">
+              <Smartphone size={28} />
             </a>
           </div>
         </div>

@@ -16,7 +16,7 @@ function Navbar() {
           </li>
           <li>
             <a
-              href="https://github.com/your-username/flowfolio"
+              href="https://github.com/Vincrypt-Management/flowfolio"
               target="_blank"
               rel="noopener noreferrer"
               className="landing-nav-btn landing-nav-btn-outline"

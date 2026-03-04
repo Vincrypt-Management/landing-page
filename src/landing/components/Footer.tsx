@@ -12,7 +12,7 @@ function Footer() {
         </div>
         <div className="landing-footer-links">
           <a
-            href="https://github.com/your-username/flowfolio"
+            href="https://github.com/Vincrypt-Management/flowfolio"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -20,7 +20,7 @@ function Footer() {
             GitHub
           </a>
           <a
-            href="https://github.com/your-username/flowfolio#readme"
+            href="https://github.com/Vincrypt-Management/flowfolio#readme"
             target="_blank"
             rel="noopener noreferrer"
           >

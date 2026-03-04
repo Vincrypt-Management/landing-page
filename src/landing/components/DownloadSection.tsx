@@ -1,23 +1,32 @@
-import { Monitor, Apple, Terminal } from "lucide-react";
+import { Monitor, Apple, Terminal, Smartphone } from "lucide-react";
+
+const RELEASE_BASE =
+  "https://github.com/Vincrypt-Management/flowfolio/releases/download/v0.2.0";
 
 const platforms = [
   {
     name: "Windows",
     icon: <Monitor />,
-    version: "v0.1.0",
-    href: "https://github.com/your-username/flowfolio/releases/latest",
+    version: "v0.2.0",
+    href: `${RELEASE_BASE}/FlowFolio-0.2.0-windows-x64-setup.exe`,
   },
   {
     name: "macOS",
     icon: <Apple />,
-    version: "v0.1.0",
-    href: "https://github.com/your-username/flowfolio/releases/latest",
+    version: "v0.2.0",
+    href: `${RELEASE_BASE}/FlowFolio-0.2.0-macos-aarch64.dmg`,
   },
   {
     name: "Linux",
     icon: <Terminal />,
-    version: "v0.1.0",
-    href: "https://github.com/your-username/flowfolio/releases/latest",
+    version: "v0.2.0",
+    href: `${RELEASE_BASE}/FlowFolio-0.2.0-linux-amd64.AppImage`,
+  },
+  {
+    name: "Android",
+    icon: <Smartphone />,
+    version: "v0.2.0",
+    href: `${RELEASE_BASE}/FlowFolio-0.2.0-android.apk`,
   },
 ];
 
