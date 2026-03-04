@@ -1,5 +1,3 @@
-import { LayoutDashboard } from "lucide-react";
-
 function ProductShowcase() {
   return (
     <section className="landing-showcase">
@@ -7,13 +5,14 @@ function ProductShowcase() {
         {/* Glowing Border Frame */}
         <div className="landing-showcase-frame">
           <div className="landing-showcase-inner">
-            <div className="landing-showcase-placeholder">
-              <LayoutDashboard />
-              <span>App Screenshot</span>
-              <span style={{ fontSize: "0.8rem", opacity: 0.6 }}>
-                Replace with actual product screenshot
-              </span>
-            </div>
+            <video
+              className="landing-showcase-video"
+              src="/flowfolio-demo.mp4"
+              autoPlay
+              loop
+              muted
+              playsInline
+            />
           </div>
         </div>
       </div>
