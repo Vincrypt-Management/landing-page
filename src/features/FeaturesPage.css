@@ -311,10 +311,10 @@ body {
   border-radius: 12px;
 }
 
-.features-problem-emoji {
-  font-size: 1.5rem;
-  display: block;
+.features-problem-icon {
+  color: #ef4444;
   margin-bottom: 0.75rem;
+  display: block;
 }
 
 .features-problem-card h4 {

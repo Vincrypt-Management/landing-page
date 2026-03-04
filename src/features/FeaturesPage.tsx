@@ -29,6 +29,9 @@ import {
   Database,
   Activity,
   Zap,
+  Cloud,
+  HelpCircle,
+  TrendingDown,
 } from "lucide-react";
 
 const sections = [
@@ -150,17 +153,17 @@ function FeaturesPage() {
           </p>
           <div className="features-problem-grid">
             <div className="features-problem-card">
-              <span className="features-problem-emoji">☁️</span>
+              <Cloud size={24} className="features-problem-icon" />
               <h4>Cloud-dependent</h4>
               <p>Your financial data lives on someone else's servers. You hope they're trustworthy.</p>
             </div>
             <div className="features-problem-card">
-              <span className="features-problem-emoji">🔮</span>
+              <HelpCircle size={24} className="features-problem-icon" />
               <h4>Opaque decisions</h4>
               <p>"Buy this stock." Why? The algorithm doesn't explain. You just click.</p>
             </div>
             <div className="features-problem-card">
-              <span className="features-problem-emoji">📉</span>
+              <TrendingDown size={24} className="features-problem-icon" />
               <h4>No system</h4>
               <p>Every month is a fresh panic. No rules, no process, no memory of what worked.</p>
             </div>
