@@ -12,6 +12,9 @@ function Navbar() {
             <a href="#features">Features</a>
           </li>
           <li>
+            <a href="features.html">Docs</a>
+          </li>
+          <li>
             <a href="#download">Download</a>
           </li>
           <li>

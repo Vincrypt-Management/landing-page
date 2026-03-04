@@ -11,7 +11,10 @@ export default defineConfig({
     outDir: "dist-landing",
     emptyOutDir: true,
     rollupOptions: {
-      input: resolve(__dirname, "landing.html"),
+      input: {
+        landing: resolve(__dirname, "landing.html"),
+        features: resolve(__dirname, "features.html"),
+      },
     },
   },
   server: {
