@@ -1,4 +1,5 @@
-import { Github, FileText } from "lucide-react";
+import { GitHubIcon } from "./icons";
+import { FileText } from "lucide-react";
 
 function Footer() {
   return (
@@ -16,7 +17,7 @@ function Footer() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <Github size={18} />
+            <GitHubIcon size={18} />
             GitHub
           </a>
           <a

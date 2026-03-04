@@ -1,21 +1,21 @@
-import { Monitor, Apple, Terminal } from "lucide-react";
+import { WindowsIcon, AppleIcon, LinuxIcon } from "./icons";
 
 const platforms = [
   {
     name: "Windows",
-    icon: <Monitor />,
+    icon: <WindowsIcon />,
     version: "v0.1.0",
     href: "https://github.com/your-username/flowfolio/releases/latest",
   },
   {
     name: "macOS",
-    icon: <Apple />,
+    icon: <AppleIcon />,
     version: "v0.1.0",
     href: "https://github.com/your-username/flowfolio/releases/latest",
   },
   {
     name: "Linux",
-    icon: <Terminal />,
+    icon: <LinuxIcon />,
     version: "v0.1.0",
     href: "https://github.com/your-username/flowfolio/releases/latest",
   },

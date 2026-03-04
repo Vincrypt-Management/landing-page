@@ -1,8 +1,10 @@
-import { Monitor, Apple, Terminal } from "lucide-react";
+import { WindowsIcon, AppleIcon, LinuxIcon, HeroGridPattern, HeroGlowOrb } from "./icons";
 
 function Hero() {
   return (
     <section className="landing-hero">
+      <HeroGridPattern />
+      <HeroGlowOrb />
       <div className="landing-hero-content">
         {/* Animated Badge */}
         <a href="#features" className="landing-badge">
@@ -31,13 +33,13 @@ function Hero() {
           <div className="landing-install-divider" />
           <div className="landing-install-icons">
             <a href="#download" title="Windows">
-              <Monitor size={28} />
+              <WindowsIcon size={28} />
             </a>
             <a href="#download" title="macOS">
-              <Apple size={28} />
+              <AppleIcon size={28} />
             </a>
             <a href="#download" title="Linux">
-              <Terminal size={28} />
+              <LinuxIcon size={28} />
             </a>
           </div>
         </div>
