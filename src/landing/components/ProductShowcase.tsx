@@ -1,5 +1,5 @@
 function ProductShowcase() {
-  const demoVideo = `${import.meta.env.BASE_URL}flowfolio-demo.mp4`;
+  const demoVideo = `${import.meta.env.BASE_URL}flowfolio-app-showcase.mp4`;
 
   return (
     <section className="landing-showcase">
