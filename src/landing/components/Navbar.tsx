@@ -5,7 +5,7 @@ function Navbar() {
     <nav className="landing-navbar">
       <div className="landing-navbar-content">
         <a href="#" className="landing-logo">
-          <img src="icon-only.png" alt="Flowfolio" className="landing-logo-icon" />
+          <img src="logo.png" alt="Flowfolio" className="landing-logo-icon" />
           Flowfolio
         </a>
         <ul className="landing-nav-links">
