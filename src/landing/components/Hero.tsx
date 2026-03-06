@@ -31,16 +31,16 @@ function Hero() {
           <div className="landing-install-divider" />
           <div className="landing-install-icons">
             <a href="#download" title="Windows">
-              <Monitor size={28} />
+              <Monitor size={28} fill="currentColor" />
             </a>
             <a href="#download" title="macOS">
-              <Apple size={28} />
+              <Apple size={28} fill="currentColor" />
             </a>
             <a href="#download" title="Linux">
-              <Terminal size={28} />
+              <Terminal size={28} fill="currentColor" />
             </a>
             <a href="#download" title="Android">
-              <Smartphone size={28} />
+              <Smartphone size={28} fill="currentColor" />
             </a>
           </div>
         </div>
