@@ -1,4 +1,4 @@
-import { Monitor, Apple, Terminal, Smartphone } from "lucide-react";
+import { FaWindows, FaApple, FaLinux, FaAndroid } from "react-icons/fa";
 
 function Hero() {
   return (
@@ -31,16 +31,16 @@ function Hero() {
           <div className="landing-install-divider" />
           <div className="landing-install-icons">
             <a href="#download" title="Windows">
-              <Monitor size={28} fill="currentColor" />
+              <FaWindows size={26} />
             </a>
             <a href="#download" title="macOS">
-              <Apple size={28} fill="currentColor" />
+              <FaApple size={26} />
             </a>
             <a href="#download" title="Linux">
-              <Terminal size={28} fill="currentColor" />
+              <FaLinux size={26} />
             </a>
             <a href="#download" title="Android">
-              <Smartphone size={28} fill="currentColor" />
+              <FaAndroid size={26} />
             </a>
           </div>
         </div>
