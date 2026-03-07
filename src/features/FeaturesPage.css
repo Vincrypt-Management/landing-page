@@ -3,7 +3,7 @@
    Green + Purple Dark Theme
    ============================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 
 /* Reset */
 *,
@@ -25,6 +25,16 @@ body {
   color: #ffffff;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+}
+
+/* Space Grotesk for all headings and titles */
+h1, h2, h3, h4, h5, h6,
+.features-section-title,
+.features-subsection-title,
+.features-topbar-title,
+.features-sidebar-title,
+.features-sidebar-section-title {
+  font-family: 'Space Grotesk', 'Inter', sans-serif;
 }
 
 /* ============================================
@@ -128,7 +138,8 @@ body {
   left: 0;
   bottom: 0;
   width: 260px;
-  background: #000000;
+  background: rgba(5, 5, 5, 0.8);
+  backdrop-filter: blur(12px);
   border-right: 1px solid rgba(255, 255, 255, 0.06);
   display: flex;
   flex-direction: column;
@@ -322,6 +333,7 @@ body {
 .features-problem-card {
   padding: 1.5rem;
   background: rgba(239, 68, 68, 0.03);
+  backdrop-filter: blur(8px);
   border: 1px solid rgba(239, 68, 68, 0.08);
   border-radius: 12px;
 }
@@ -489,14 +501,16 @@ body {
 
 .features-detail-card {
   padding: 1.25rem;
-  background: rgba(255, 255, 255, 0.02);
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(8px);
   border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: 10px;
-  transition: border-color 0.2s;
+  transition: border-color 0.2s, background 0.2s;
 }
 
 .features-detail-card:hover {
-  border-color: rgba(255, 255, 255, 0.12);
+  border-color: rgba(0, 229, 153, 0.15);
+  background: rgba(255, 255, 255, 0.05);
 }
 
 .features-detail-icon {
@@ -530,13 +544,15 @@ body {
 .features-factor-card {
   padding: 1rem;
   background: rgba(99, 102, 241, 0.04);
+  backdrop-filter: blur(8px);
   border: 1px solid rgba(99, 102, 241, 0.1);
   border-radius: 8px;
-  transition: border-color 0.2s;
+  transition: border-color 0.2s, background 0.2s;
 }
 
 .features-factor-card:hover {
   border-color: rgba(99, 102, 241, 0.25);
+  background: rgba(99, 102, 241, 0.08);
 }
 
 .features-factor-header {
@@ -665,7 +681,8 @@ body {
   flex: 1;
   min-width: 120px;
   padding: 1rem;
-  background: rgba(255, 255, 255, 0.02);
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(8px);
   border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: 8px;
   text-align: center;
