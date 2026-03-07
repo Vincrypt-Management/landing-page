@@ -89,7 +89,7 @@ function FeaturesPage() {
             {sidebarOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
           <a href="landing.html" className="features-back">
-            <img src="icon-only.png" alt="Flowfolio" className="features-logo-icon" />
+            <img src="logo.png" alt="Flowfolio" className="features-logo-icon" />
             <span>Flowfolio</span>
           </a>
         </div>
@@ -110,7 +110,7 @@ function FeaturesPage() {
       <aside className={`features-sidebar ${sidebarOpen ? "open" : ""}`}>
         <nav className="features-sidebar-nav">
           <div className="features-sidebar-heading">
-            <img src="icon-only.png" alt="" className="features-sidebar-logo" />
+            <img src="logo.png" alt="" className="features-sidebar-logo" />
             Documentation
           </div>
           {sections.map(({ id, label, icon }) => (
@@ -1185,7 +1185,7 @@ PortfolioConfig {
         <footer className="features-footer">
           <div className="features-footer-content">
             <span className="features-footer-brand">
-              <img src="icon-only.png" alt="Flowfolio" className="features-footer-icon" />
+              <img src="logo.png" alt="Flowfolio" className="features-footer-icon" />
               Flowfolio
             </span>
             <span className="features-footer-tagline">
