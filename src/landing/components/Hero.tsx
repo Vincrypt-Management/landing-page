@@ -1,4 +1,5 @@
-import { FaWindows, FaApple, FaLinux, FaAndroid } from "react-icons/fa";
+import { FaWindows } from "react-icons/fa6";
+import { SiApple, SiLinux, SiAndroid } from "react-icons/si";
 
 function Hero() {
   return (
@@ -31,16 +32,16 @@ function Hero() {
           <div className="landing-install-divider" />
           <div className="landing-install-icons">
             <a href="#download" title="Windows">
-              <FaWindows size={26} />
+              <FaWindows size={24} />
             </a>
             <a href="#download" title="macOS">
-              <FaApple size={26} />
+              <SiApple size={24} />
             </a>
             <a href="#download" title="Linux">
-              <FaLinux size={26} />
+              <SiLinux size={24} />
             </a>
             <a href="#download" title="Android">
-              <FaAndroid size={26} />
+              <SiAndroid size={24} />
             </a>
           </div>
         </div>
