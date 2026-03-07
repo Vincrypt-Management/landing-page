@@ -1,4 +1,5 @@
-import { Monitor, Apple, Terminal, Smartphone } from "lucide-react";
+import { FaWindows } from "react-icons/fa6";
+import { SiApple, SiLinux, SiAndroid } from "react-icons/si";
 
 const RELEASE_BASE =
   "https://github.com/Vincrypt-Management/flowfolio/releases/download/v0.2.0";
@@ -6,25 +7,25 @@ const RELEASE_BASE =
 const platforms = [
   {
     name: "Windows",
-    icon: <Monitor />,
+    icon: <FaWindows size={24} />,
     version: "v0.2.0",
     href: `${RELEASE_BASE}/FlowFolio-0.2.0-windows-x64-setup.exe`,
   },
   {
     name: "macOS",
-    icon: <Apple />,
+    icon: <SiApple size={24} />,
     version: "v0.2.0",
     href: `${RELEASE_BASE}/FlowFolio-0.2.0-macos-aarch64.dmg`,
   },
   {
     name: "Linux",
-    icon: <Terminal />,
+    icon: <SiLinux size={24} />,
     version: "v0.2.0",
     href: `${RELEASE_BASE}/FlowFolio-0.2.0-linux-amd64.AppImage`,
   },
   {
     name: "Android",
-    icon: <Smartphone />,
+    icon: <SiAndroid size={24} />,
     version: "v0.2.0",
     href: `${RELEASE_BASE}/FlowFolio-0.2.0-android.apk`,
   },

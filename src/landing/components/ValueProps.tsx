@@ -1,4 +1,4 @@
-import { Shield, Eye, WifiOff, Monitor } from "lucide-react";
+import { Shield, Eye, WifiOff, Laptop } from "lucide-react";
 
 const valueProps = [
   {
@@ -17,7 +17,7 @@ const valueProps = [
     description: "No internet required after sync.",
   },
   {
-    icon: <Monitor />,
+    icon: <Laptop />,
     title: "Multi-Platform",
     description: "Windows, macOS, and Linux.",
   },
