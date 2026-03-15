@@ -15,6 +15,7 @@
   --ff-green-dim: rgba(0, 229, 153, 0.08);
   --ff-green-border: rgba(0, 229, 153, 0.18);
   --ff-max-width: 1100px;
+  --ff-bar-inactive: rgba(255, 255, 255, 0.12);
 }
 
 /* Reset & Base */
@@ -789,7 +790,7 @@ body {
 .ff-activity-bar {
   width: 6px;
   border-radius: 2px 2px 0 0;
-  background: rgba(255, 255, 255, 0.12);
+  background: var(--ff-bar-inactive);
   /* No min-height here — floor enforced by inline max(4px, X%) in the component */
 }
 
