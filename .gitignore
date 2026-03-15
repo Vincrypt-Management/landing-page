@@ -28,3 +28,5 @@ dist-landing
 .env
 .env.local
 .env.*.local
+.superpowers/
+.playwright-mcp/
