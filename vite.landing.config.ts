@@ -15,6 +15,7 @@ export default defineConfig({
         landing: resolve(__dirname, "landing.html"),
         features: resolve(__dirname, "features.html"),
         releases: resolve(__dirname, "releases.html"),
+        privacy: resolve(__dirname, "privacy.html"),
       },
     },
   },
