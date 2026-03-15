@@ -129,6 +129,12 @@ function FeaturesPage() {
         </div>
         <span className="features-topbar-title">Documentation</span>
         <div className="features-topbar-right">
+          <a href="releases.html" className="features-topbar-link">
+            Releases
+          </a>
+          <a href="privacy.html" className="features-topbar-link">
+            Privacy
+          </a>
           <a
             href="https://github.com/Vincrypt-Management/flowfolio"
             target="_blank"
@@ -1332,6 +1338,7 @@ PortfolioConfig {
               <FileText size={16} />
               Home
             </a>
+            <a href="privacy.html">Privacy</a>
           </div>
         </footer>
       </main>

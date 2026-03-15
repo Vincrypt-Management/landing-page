@@ -17,6 +17,9 @@ function Navbar() {
             <a href="releases.html">Releases</a>
           </li>
           <li>
+            <a href="privacy.html">Privacy</a>
+          </li>
+          <li>
             <a href="#download">Download</a>
           </li>
           <li>

@@ -173,6 +173,7 @@ function ReleasesPage() {
           <ul className="rp-nav-links">
             <li><a href="landing.html#features">Features</a></li>
             <li><a href="features.html">Docs</a></li>
+            <li><a href="privacy.html">Privacy</a></li>
             <li><a href="landing.html#download">Download</a></li>
             <li>
               <a
@@ -237,6 +238,7 @@ function ReleasesPage() {
             <a href="https://github.com/Vincrypt-Management/flowfolio" target="_blank" rel="noopener noreferrer">GitHub</a>
             <a href="features.html">Documentation</a>
             <a href="landing.html">Home</a>
+            <a href="privacy.html">Privacy</a>
           </div>
         </div>
       </footer>

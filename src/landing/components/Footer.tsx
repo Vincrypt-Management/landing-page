@@ -26,6 +26,8 @@ function Footer() {
           >
             Documentation
           </a>
+          <a href="releases.html">Releases</a>
+          <a href="privacy.html">Privacy</a>
         </div>
       </div>
     </footer>
