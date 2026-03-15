@@ -1,37 +1,34 @@
 import { FaWindows } from "react-icons/fa6";
 import { SiApple, SiLinux, SiAndroid } from "react-icons/si";
+import type { ReactNode } from "react";
+import { useGitHubRelease } from "../hooks/useGitHubRelease";
+import type { PlatformRelease } from "../hooks/useGitHubRelease";
 
-const RELEASE_BASE =
-  "https://github.com/Vincrypt-Management/flowfolio/releases/download/v0.2.0";
+// Icons live in the component — the hook owns no React UI concerns
+const PLATFORM_ICONS: Record<PlatformRelease["name"], ReactNode> = {
+  Windows: <FaWindows size={24} />,
+  macOS:   <SiApple size={24} />,
+  Linux:   <SiLinux size={24} />,
+  Android: <SiAndroid size={24} />,
+};
 
-const platforms = [
-  {
-    name: "Windows",
-    icon: <FaWindows size={24} />,
-    version: "v0.2.0",
-    href: `${RELEASE_BASE}/FlowFolio-0.2.0-windows-x64-setup.exe`,
-  },
-  {
-    name: "macOS",
-    icon: <SiApple size={24} />,
-    version: "v0.2.0",
-    href: `${RELEASE_BASE}/FlowFolio-0.2.0-macos-aarch64.dmg`,
-  },
-  {
-    name: "Linux",
-    icon: <SiLinux size={24} />,
-    version: "v0.2.0",
-    href: `${RELEASE_BASE}/FlowFolio-0.2.0-linux-amd64.AppImage`,
-  },
-  {
-    name: "Android",
-    icon: <SiAndroid size={24} />,
-    version: "v0.2.0",
-    href: `${RELEASE_BASE}/FlowFolio-0.2.0-android.apk`,
-  },
-];
+function DownloadSkeleton() {
+  return (
+    <div className="landing-platform-buttons">
+      {[0, 1, 2, 3].map((i) => (
+        <div key={i} className="landing-platform-btn landing-platform-btn--skeleton" aria-hidden="true">
+          <div className="landing-skeleton-icon" />
+          <div className="landing-skeleton-text landing-skeleton-text--name" />
+          <div className="landing-skeleton-text landing-skeleton-text--version" />
+        </div>
+      ))}
+    </div>
+  );
+}
 
 function DownloadSection() {
+  const { loading, platforms, detectedPlatform } = useGitHubRelease();
+
   return (
     <section className="landing-download-section" id="download">
       <div className="landing-download-section-content">
@@ -39,21 +36,34 @@ function DownloadSection() {
         <p className="landing-download-subtitle">
           Free and open source. No account required.
         </p>
-        <div className="landing-platform-buttons">
-          {platforms.map((platform, index) => (
-            <a
-              key={index}
-              href={platform.href}
-              className="landing-platform-btn"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {platform.icon}
-              <span className="landing-platform-name">{platform.name}</span>
-              <span className="landing-platform-version">{platform.version}</span>
-            </a>
-          ))}
-        </div>
+
+        {loading ? (
+          <DownloadSkeleton />
+        ) : (
+          <div className="landing-platform-buttons">
+            {platforms.map((platform) => {
+              const isRecommended = platform.name === detectedPlatform;
+              return (
+                <a
+                  key={platform.name}
+                  href={platform.href}
+                  className={`landing-platform-btn${isRecommended ? " landing-platform-btn--recommended" : ""}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {isRecommended && (
+                    <span className="landing-platform-recommended-badge">
+                      Recommended for you
+                    </span>
+                  )}
+                  {PLATFORM_ICONS[platform.name]}
+                  <span className="landing-platform-name">{platform.name}</span>
+                  <span className="landing-platform-version">{platform.version}</span>
+                </a>
+              );
+            })}
+          </div>
+        )}
       </div>
     </section>
   );
