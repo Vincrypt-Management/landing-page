@@ -30,3 +30,4 @@ dist-landing
 .env.*.local
 .superpowers/
 .playwright-mcp/
+.worktrees/
