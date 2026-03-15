@@ -585,6 +585,7 @@ body {
   display: flex;
   justify-content: center;
   gap: 1rem;
+  flex-wrap: wrap;
 }
 
 /* Platform Button — Glass Card */
@@ -632,10 +633,6 @@ body {
   color: var(--landing-text-muted);
 }
 
-/* flex-wrap so 4 buttons don't overflow on narrow viewports */
-.landing-platform-buttons {
-  flex-wrap: wrap;
-}
 
 /* Recommended badge */
 .landing-platform-btn--recommended {
