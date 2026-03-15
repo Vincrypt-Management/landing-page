@@ -23,20 +23,22 @@ Automatically fetch the latest GitHub release and display up-to-date download li
 ### Core Types
 
 ```ts
-interface PlatformDownload {
+// PlatformRelease: icon-free — icons cannot be JSON-serialized and live in the component
+interface PlatformRelease {
   name: "Windows" | "macOS" | "Linux" | "Android";
-  icon: ReactNode;
   href: string;
   version: string;
 }
 
 interface ReleaseCacheEntry {
-  schemaVersion: 1;           // increment if PlatformDownload shape changes
+  schemaVersion: 1;           // increment if PlatformRelease shape changes
   version: string;            // e.g. "v0.3.0"
-  platforms: PlatformDownload[];
+  platforms: PlatformRelease[];  // no icon — icons merged at render time
   cachedAt: number;           // Date.now()
 }
 ```
+
+Icons (`ReactNode`) are injected by `DownloadSection.tsx` via a static `PLATFORM_ICONS` map keyed on `PlatformRelease["name"]`. This keeps non-serializable React values out of the cache layer.
 
 ### Hook Return Type
 
@@ -44,7 +46,7 @@ interface ReleaseCacheEntry {
 interface UseGitHubReleaseResult {
   loading: boolean;
   version: string;
-  platforms: PlatformDownload[];
+  platforms: PlatformRelease[];
   detectedPlatform: string;   // "" if undetected (iOS, unknown, etc.)
   // error is intentionally omitted: failures fall back silently;
   // a console.warn is emitted for observability
@@ -78,7 +80,7 @@ The fallback constants live in `useGitHubRelease.ts` (not in `DownloadSection.ts
 ```ts
 const FALLBACK_VERSION = "v0.2.0";
 const FALLBACK_BASE = "https://github.com/Vincrypt-Management/flowfolio/releases/download/v0.2.0";
-const FALLBACK_PLATFORMS: Omit<PlatformDownload, "icon">[] = [
+const FALLBACK_PLATFORMS: PlatformRelease[] = [
   { name: "Windows", version: FALLBACK_VERSION, href: `${FALLBACK_BASE}/FlowFolio-0.2.0-windows-x64-setup.exe` },
   { name: "macOS",   version: FALLBACK_VERSION, href: `${FALLBACK_BASE}/FlowFolio-0.2.0-macos-aarch64.dmg` },
   { name: "Linux",   version: FALLBACK_VERSION, href: `${FALLBACK_BASE}/FlowFolio-0.2.0-linux-amd64.AppImage` },
