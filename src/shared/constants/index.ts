@@ -122,6 +122,7 @@ export const STORAGE_KEYS = {
   THEME: 'flowfolio_theme',
   RECENT_SYMBOLS: 'flowfolio_recent_symbols',
   GH_RELEASE_CACHE: 'flowfolio_gh_release_cache',
+  GH_COMMIT_ACTIVITY_CACHE: 'flowfolio_gh_commit_activity_cache',
 } as const;
 
 // ============ Event Names ============
