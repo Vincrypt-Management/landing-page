@@ -10,8 +10,9 @@ export interface PlatformRelease {
 }
 
 interface ReleaseCacheEntry {
-  schemaVersion: 1;
+  schemaVersion: 2;
   version: string;
+  publishedAt: string | null;
   platforms: PlatformRelease[];
   cachedAt: number;
 }
@@ -19,6 +20,7 @@ interface ReleaseCacheEntry {
 export interface UseGitHubReleaseResult {
   loading: boolean;
   version: string;
+  publishedAt: string | null;
   platforms: PlatformRelease[];
   detectedPlatform: string;
 }
@@ -28,7 +30,7 @@ export interface UseGitHubReleaseResult {
 const REPO = "Vincrypt-Management/flowfolio";
 const API_URL = `https://api.github.com/repos/${REPO}/releases/latest`;
 const CACHE_TTL_MS = 60 * 60 * 1000; // 1 hour
-const SCHEMA_VERSION = 1 as const;
+const SCHEMA_VERSION = 2 as const;
 
 const FALLBACK_VERSION = "v0.2.2";
 const FALLBACK_BASE =
@@ -91,7 +93,8 @@ function readCache(): ReleaseCacheEntry | null {
       typeof entry.cachedAt !== "number" ||
       !Array.isArray(entry.platforms) ||
       entry.platforms.length === 0 ||
-      typeof entry.version !== "string"
+      typeof entry.version !== "string" ||
+      !("publishedAt" in entry)
     ) {
       console.warn("[useGitHubRelease] Cache schema invalid, treating as miss");
       return null;
@@ -157,6 +160,7 @@ export function useGitHubRelease(): UseGitHubReleaseResult {
 
   const [loading, setLoading] = useState(!initialCache);
   const [version, setVersion] = useState(initialCache?.version ?? FALLBACK_VERSION);
+  const [publishedAt, setPublishedAt] = useState<string | null>(initialCache?.publishedAt ?? null);
   const [platforms, setPlatforms] = useState<PlatformRelease[]>(
     initialCache?.platforms ?? FALLBACK_PLATFORMS
   );
@@ -183,6 +187,7 @@ export function useGitHubRelease(): UseGitHubReleaseResult {
         }
         const data = await res.json();
         const tagName: string = data.tag_name ?? FALLBACK_VERSION;
+        const publishedAt: string | null = typeof data.published_at === "string" ? data.published_at : null;
         const assets: Array<{ browser_download_url: string; name: string }> =
           data.assets ?? [];
 
@@ -195,12 +200,14 @@ export function useGitHubRelease(): UseGitHubReleaseResult {
 
         const { platforms: resolved, hasAnyFallback } = matchAssetsToPlatforms(assets, tagName);
         setVersion(tagName);
+        setPublishedAt(publishedAt);
         setPlatforms(resolved);
 
         if (!hasAnyFallback) {
           writeCache({
             schemaVersion: SCHEMA_VERSION,
             version: tagName,
+            publishedAt,
             platforms: resolved,
             cachedAt: Date.now(),
           });
@@ -226,5 +233,5 @@ export function useGitHubRelease(): UseGitHubReleaseResult {
     return () => controller.abort();
   }, []);
 
-  return { loading, version, platforms, detectedPlatform };
+  return { loading, version, publishedAt, platforms, detectedPlatform };
 }
