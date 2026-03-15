@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { STORAGE_KEYS } from "../../shared/constants";
 
 // ── Types ────────────────────────────────────────────────────────────────────
@@ -32,7 +32,7 @@ const SCHEMA_VERSION = 1 as const;
 
 const FALLBACK_VERSION = "v0.2.0";
 const FALLBACK_BASE =
-  "https://github.com/Vincrypt-Management/flowfolio/releases/download/v0.2.0";
+  `https://github.com/Vincrypt-Management/flowfolio/releases/download/${FALLBACK_VERSION}`;
 
 const FALLBACK_PLATFORMS: PlatformRelease[] = [
   {
@@ -96,7 +96,10 @@ function readCache(): ReleaseCacheEntry | null {
       console.warn("[useGitHubRelease] Cache schema invalid, treating as miss");
       return null;
     }
-    if (Date.now() - entry.cachedAt > CACHE_TTL_MS) return null;
+    if (Date.now() - entry.cachedAt > CACHE_TTL_MS) {
+      console.warn("[useGitHubRelease] Cache expired, refetching");
+      return null;
+    }
     return entry as ReleaseCacheEntry;
   } catch {
     console.warn("[useGitHubRelease] Cache read failed, treating as miss");
@@ -126,8 +129,9 @@ function flushCacheIfRequested(): void {
 function matchAssetsToPlatforms(
   assets: Array<{ browser_download_url: string; name: string }>,
   version: string
-): PlatformRelease[] {
-  return PLATFORM_MATCHERS.map(({ name, keywords }) => {
+): { platforms: PlatformRelease[]; hasAnyFallback: boolean } {
+  let hasAnyFallback = false;
+  const platforms = PLATFORM_MATCHERS.map(({ name, keywords }) => {
     const fallback = FALLBACK_PLATFORMS.find((p) => p.name === name)!;
     const match = assets.find((asset) =>
       keywords.some((kw) => asset.name.toLowerCase().includes(kw.toLowerCase()))
@@ -136,10 +140,12 @@ function matchAssetsToPlatforms(
       console.warn(
         `[useGitHubRelease] No asset found for ${name}, using fallback`
       );
+      hasAnyFallback = true;
       return fallback;
     }
     return { name, version, href: match.browser_download_url };
   });
+  return { platforms, hasAnyFallback };
 }
 
 // ── Hook ─────────────────────────────────────────────────────────────────────
@@ -148,7 +154,7 @@ export function useGitHubRelease(): UseGitHubReleaseResult {
   const [loading, setLoading] = useState(true);
   const [version, setVersion] = useState(FALLBACK_VERSION);
   const [platforms, setPlatforms] = useState<PlatformRelease[]>(FALLBACK_PLATFORMS);
-  const detectedPlatform = detectPlatform();
+  const detectedPlatform = useMemo(() => detectPlatform(), []);
 
   useEffect(() => {
     // Must flush before reading cache so the escape hatch works
@@ -171,7 +177,6 @@ export function useGitHubRelease(): UseGitHubReleaseResult {
           console.warn(
             `[useGitHubRelease] GitHub API returned ${res.status}, using fallback`
           );
-          setLoading(false);
           return;
         }
         const data = await res.json();
@@ -183,20 +188,23 @@ export function useGitHubRelease(): UseGitHubReleaseResult {
           console.warn(
             "[useGitHubRelease] Release has no assets, using fallback"
           );
-          setLoading(false);
           return;
         }
 
-        const resolved = matchAssetsToPlatforms(assets, tagName);
+        const { platforms: resolved, hasAnyFallback } = matchAssetsToPlatforms(assets, tagName);
         setVersion(tagName);
         setPlatforms(resolved);
 
-        writeCache({
-          schemaVersion: SCHEMA_VERSION,
-          version: tagName,
-          platforms: resolved,
-          cachedAt: Date.now(),
-        });
+        if (!hasAnyFallback) {
+          writeCache({
+            schemaVersion: SCHEMA_VERSION,
+            version: tagName,
+            platforms: resolved,
+            cachedAt: Date.now(),
+          });
+        } else {
+          console.warn("[useGitHubRelease] Partial asset match — skipping cache");
+        }
       } catch (err) {
         if ((err as Error).name === "AbortError") return;
         console.warn("[useGitHubRelease] Fetch failed, using fallback:", err);
