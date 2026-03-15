@@ -35,7 +35,7 @@ const FALLBACK_RELEASES: Release[] = [
     tag_name: "v0.2.2",
     name: "v0.2.2",
     body: `## What's new\n\n- Bug fixes and stability improvements`,
-    published_at: new Date().toISOString(),
+    published_at: "2025-03-15T00:00:00Z",
     prerelease: false,
     assets: [
       {
@@ -60,6 +60,72 @@ const FALLBACK_RELEASES: Release[] = [
         name: "FlowFolio-0.2.2-android.apk",
         browser_download_url:
           "https://github.com/Vincrypt-Management/flowfolio/releases/download/v0.2.2/FlowFolio-0.2.2-android.apk",
+        size: 0,
+      },
+    ],
+  },
+  {
+    tag_name: "v0.2.1",
+    name: "v0.2.1",
+    body: `## What's new\n\n- Bug fixes and stability improvements`,
+    published_at: "2025-02-15T00:00:00Z",
+    prerelease: false,
+    assets: [
+      {
+        name: "FlowFolio-0.2.1-windows-x64-setup.exe",
+        browser_download_url:
+          "https://github.com/Vincrypt-Management/flowfolio/releases/download/v0.2.1/FlowFolio-0.2.1-windows-x64-setup.exe",
+        size: 0,
+      },
+      {
+        name: "FlowFolio-0.2.1-macos-aarch64.dmg",
+        browser_download_url:
+          "https://github.com/Vincrypt-Management/flowfolio/releases/download/v0.2.1/FlowFolio-0.2.1-macos-aarch64.dmg",
+        size: 0,
+      },
+      {
+        name: "FlowFolio-0.2.1-linux-amd64.AppImage",
+        browser_download_url:
+          "https://github.com/Vincrypt-Management/flowfolio/releases/download/v0.2.1/FlowFolio-0.2.1-linux-amd64.AppImage",
+        size: 0,
+      },
+      {
+        name: "FlowFolio-0.2.1-android.apk",
+        browser_download_url:
+          "https://github.com/Vincrypt-Management/flowfolio/releases/download/v0.2.1/FlowFolio-0.2.1-android.apk",
+        size: 0,
+      },
+    ],
+  },
+  {
+    tag_name: "v0.2.0",
+    name: "v0.2.0 — Initial Release",
+    body: `## What's new\n\n- Vibe Studio: design strategies with natural language\n- Explainable Rankings with factor breakdowns\n- Portfolio Management with drift tracking\n- Backtest Lab for offline historical simulation\n- Investment Journal with version history\n- Quantitative Analysis (RSI, MACD, Bollinger Bands)\n- 100% offline — no cloud, no telemetry`,
+    published_at: "2025-01-01T00:00:00Z",
+    prerelease: false,
+    assets: [
+      {
+        name: "FlowFolio-0.2.0-windows-x64-setup.exe",
+        browser_download_url:
+          "https://github.com/Vincrypt-Management/flowfolio/releases/download/v0.2.0/FlowFolio-0.2.0-windows-x64-setup.exe",
+        size: 0,
+      },
+      {
+        name: "FlowFolio-0.2.0-macos-aarch64.dmg",
+        browser_download_url:
+          "https://github.com/Vincrypt-Management/flowfolio/releases/download/v0.2.0/FlowFolio-0.2.0-macos-aarch64.dmg",
+        size: 0,
+      },
+      {
+        name: "FlowFolio-0.2.0-linux-amd64.AppImage",
+        browser_download_url:
+          "https://github.com/Vincrypt-Management/flowfolio/releases/download/v0.2.0/FlowFolio-0.2.0-linux-amd64.AppImage",
+        size: 0,
+      },
+      {
+        name: "FlowFolio-0.2.0-android.apk",
+        browser_download_url:
+          "https://github.com/Vincrypt-Management/flowfolio/releases/download/v0.2.0/FlowFolio-0.2.0-android.apk",
         size: 0,
       },
     ],
