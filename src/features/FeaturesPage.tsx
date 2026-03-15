@@ -31,6 +31,12 @@ import {
   Cloud,
   HelpCircle,
   TrendingDown,
+  Laptop,
+  LayoutGrid,
+  Terminal,
+  Check,
+  ChevronDown,
+  ChevronUp,
 } from "lucide-react";
 
 const sections = [
@@ -47,9 +53,37 @@ const sections = [
   { id: "roadmap", label: "Roadmap", icon: <Rocket size={16} /> },
 ];
 
+const FAQ_ITEMS = [
+  {
+    q: "Does Flowfolio work without an internet connection?",
+    a: "Yes — entirely. All strategy logic, rankings, portfolio tracking, and backtesting run locally. The only time the app uses your network is when you explicitly request fresh market data (prices, fundamentals). You can run it in airplane mode indefinitely with cached data.",
+  },
+  {
+    q: "Is it really free? What's the catch?",
+    a: "There is no catch. Flowfolio is free to download and use with no feature limits. We're building trust first. Premium tiers may come later, but the core product will always have a generous free tier.",
+  },
+  {
+    q: "What data sources does it use for prices and fundamentals?",
+    a: "Flowfolio fetches data from public financial APIs. No premium data subscription is required — the free tiers of these APIs are sufficient for most users.",
+  },
+  {
+    q: "How does the local AI work? Does it phone home?",
+    a: "The local AI runs entirely on your machine using a small bundled model. It never makes network requests. Your prompts, portfolio context, and AI responses stay on your device.",
+  },
+  {
+    q: "Can I use this on Windows or Linux?",
+    a: "Yes. Flowfolio is available for macOS (Apple Silicon and Intel), Windows 10/11, and Linux (x86_64, AppImage). See the compatibility table above for details.",
+  },
+  {
+    q: "Where is my data stored? Can I back it up?",
+    a: "All data is stored in a local SQLite database in your app data directory. You can back it up by copying this folder. The exact path is shown in Settings → Storage.",
+  },
+];
+
 function FeaturesPage() {
   const [activeSection, setActiveSection] = useState("prologue");
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [faqOpen, setFaqOpen] = useState<number | null>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -1162,6 +1196,99 @@ PortfolioConfig {
                   in your pocket.
                 </p>
               </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ── Compatibility Matrix ─────────────────────────── */}
+        <section className="features-compat-section">
+          <div className="features-compat-inner">
+            <p className="features-compat-eyebrow">Platform Support</p>
+            <h2 className="features-compat-title">What runs where.</h2>
+            <div className="features-compat-table">
+              {/* Header */}
+              <div className="features-compat-row features-compat-row--header">
+                <div className="features-compat-cell">Platform</div>
+                <div className="features-compat-cell">Download</div>
+                <div className="features-compat-cell">Offline</div>
+                <div className="features-compat-cell">Local AI</div>
+                <div className="features-compat-cell">Status</div>
+              </div>
+              {/* macOS Apple Silicon */}
+              <div className="features-compat-row">
+                <div className="features-compat-cell features-compat-cell--platform">
+                  <Laptop size={14} />macOS — Apple Silicon
+                </div>
+                <div className="features-compat-cell features-compat-cell--check">
+                  <Check size={13} />.dmg
+                </div>
+                <div className="features-compat-cell features-compat-cell--check"><Check size={13} /></div>
+                <div className="features-compat-cell features-compat-cell--check"><Check size={13} /></div>
+                <div className="features-compat-cell"><span className="features-compat-status features-compat-status--recommended">Recommended</span></div>
+              </div>
+              {/* macOS Intel */}
+              <div className="features-compat-row">
+                <div className="features-compat-cell features-compat-cell--platform">
+                  <Laptop size={14} />macOS — Intel
+                </div>
+                <div className="features-compat-cell features-compat-cell--check">
+                  <Check size={13} />.dmg
+                </div>
+                <div className="features-compat-cell features-compat-cell--check"><Check size={13} /></div>
+                <div className="features-compat-cell features-compat-cell--check"><Check size={13} /></div>
+                <div className="features-compat-cell"><span className="features-compat-status features-compat-status--stable">Stable</span></div>
+              </div>
+              {/* Windows */}
+              <div className="features-compat-row">
+                <div className="features-compat-cell features-compat-cell--platform">
+                  <LayoutGrid size={14} />Windows 10 / 11
+                </div>
+                <div className="features-compat-cell features-compat-cell--check">
+                  <Check size={13} />.msi
+                </div>
+                <div className="features-compat-cell features-compat-cell--check"><Check size={13} /></div>
+                <div className="features-compat-cell features-compat-cell--check"><Check size={13} /></div>
+                <div className="features-compat-cell"><span className="features-compat-status features-compat-status--stable">Stable</span></div>
+              </div>
+              {/* Linux */}
+              <div className="features-compat-row">
+                <div className="features-compat-cell features-compat-cell--platform">
+                  <Terminal size={14} />Linux (x86_64)
+                </div>
+                <div className="features-compat-cell features-compat-cell--check">
+                  <Check size={13} />.AppImage
+                </div>
+                <div className="features-compat-cell features-compat-cell--check"><Check size={13} /></div>
+                <div className="features-compat-cell features-compat-cell--partial">—</div>
+                <div className="features-compat-cell"><span className="features-compat-status features-compat-status--beta">Beta</span></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ── FAQ ──────────────────────────────────────────── */}
+        <section className="features-faq-section">
+          <div className="features-faq-inner">
+            <p className="features-faq-eyebrow">FAQ</p>
+            <h2 className="features-faq-title">Common questions.</h2>
+            <div className="features-faq-list">
+              {FAQ_ITEMS.map((item, i) => (
+                <div
+                  key={i}
+                  className={`features-faq-item${faqOpen === i ? " features-faq-item--open" : ""}`}
+                >
+                  <button
+                    className="features-faq-question"
+                    onClick={() => setFaqOpen(faqOpen === i ? null : i)}
+                  >
+                    {item.q}
+                    {faqOpen === i ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
+                  </button>
+                  {faqOpen === i && (
+                    <div className="features-faq-answer">{item.a}</div>
+                  )}
+                </div>
+              ))}
             </div>
           </div>
         </section>
