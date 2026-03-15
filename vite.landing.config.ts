@@ -14,6 +14,7 @@ export default defineConfig({
       input: {
         landing: resolve(__dirname, "landing.html"),
         features: resolve(__dirname, "features.html"),
+        releases: resolve(__dirname, "releases.html"),
       },
     },
   },
