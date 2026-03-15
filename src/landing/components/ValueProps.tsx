@@ -1,37 +1,18 @@
-import { Shield, Eye, WifiOff, Laptop } from "lucide-react";
-
 const valueProps = [
-  {
-    icon: <Shield />,
-    title: "100% Private",
-    description: "All data stored locally. Zero telemetry.",
-  },
-  {
-    icon: <Eye />,
-    title: "Fully Explainable",
-    description: "Every ranking shows its reasoning.",
-  },
-  {
-    icon: <WifiOff />,
-    title: "Works Offline",
-    description: "No internet required after sync.",
-  },
-  {
-    icon: <Laptop />,
-    title: "Multi-Platform",
-    description: "Windows, macOS, and Linux.",
-  },
+  { number: "∞", label: "No subscription" },
+  { number: "0", label: "Data collected" },
+  { number: "OSS", label: "Open source" },
+  { number: "Local", label: "AI on-device" },
 ];
 
 function ValueProps() {
   return (
     <section className="landing-value-props">
-      <div className="landing-value-props-grid">
+      <div className="landing-value-props-inner">
         {valueProps.map((prop, index) => (
-          <div key={index} className="landing-value-item">
-            <div className="landing-value-icon">{prop.icon}</div>
-            <h3 className="landing-value-title">{prop.title}</h3>
-            <p className="landing-value-description">{prop.description}</p>
+          <div key={index} className="ff-value-item">
+            <div className="ff-value-number">{prop.number}</div>
+            <div className="ff-value-label">{prop.label}</div>
           </div>
         ))}
       </div>

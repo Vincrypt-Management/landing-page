@@ -6,15 +6,15 @@ import type { PlatformRelease } from "../hooks/useGitHubRelease";
 
 // Icons live in the component — the hook owns no React UI concerns
 const PLATFORM_ICONS: Record<PlatformRelease["name"], ReactNode> = {
-  Windows: <FaWindows size={24} />,
-  macOS:   <SiApple size={24} />,
-  Linux:   <SiLinux size={24} />,
-  Android: <SiAndroid size={24} />,
+  Windows: <FaWindows size={22} />,
+  macOS:   <SiApple size={22} />,
+  Linux:   <SiLinux size={22} />,
+  Android: <SiAndroid size={22} />,
 };
 
 function DownloadSkeleton() {
   return (
-    <div className="landing-platform-buttons">
+    <div className="ff-platform-grid">
       {[0, 1, 2, 3].map((i) => (
         <div key={i} className="landing-platform-btn landing-platform-btn--skeleton" aria-hidden="true">
           <div className="landing-skeleton-icon" />
@@ -32,7 +32,7 @@ function DownloadSection() {
   return (
     <section className="landing-download-section" id="download">
       <div className="landing-download-section-content">
-        <h2 className="landing-download-title">Download Flowfolio</h2>
+        <h2 className="landing-download-title">Download Flowfolio.</h2>
         <p className="landing-download-subtitle">
           Free and open source. No account required.
         </p>
@@ -40,7 +40,7 @@ function DownloadSection() {
         {loading ? (
           <DownloadSkeleton />
         ) : (
-          <div className="landing-platform-buttons">
+          <div className="ff-platform-grid">
             {platforms.map((platform) => {
               const isRecommended = platform.name === detectedPlatform;
               return (
@@ -53,7 +53,7 @@ function DownloadSection() {
                 >
                   {isRecommended && (
                     <span className="landing-platform-recommended-badge">
-                      Recommended for you
+                      Recommended
                     </span>
                   )}
                   {PLATFORM_ICONS[platform.name]}

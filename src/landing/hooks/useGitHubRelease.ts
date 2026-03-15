@@ -151,24 +151,26 @@ function matchAssetsToPlatforms(
 // ── Hook ─────────────────────────────────────────────────────────────────────
 
 export function useGitHubRelease(): UseGitHubReleaseResult {
-  const [loading, setLoading] = useState(true);
-  const [version, setVersion] = useState(FALLBACK_VERSION);
-  const [platforms, setPlatforms] = useState<PlatformRelease[]>(FALLBACK_PLATFORMS);
+  // Run synchronously before first render — order matters
+  flushCacheIfRequested();          // must come before readCache
+  const initialCache = readCache(); // null if miss/expired/invalid
+
+  const [loading, setLoading] = useState(!initialCache);
+  const [version, setVersion] = useState(initialCache?.version ?? FALLBACK_VERSION);
+  const [platforms, setPlatforms] = useState<PlatformRelease[]>(
+    initialCache?.platforms ?? FALLBACK_PLATFORMS
+  );
   const detectedPlatform = useMemo(() => detectPlatform(), []);
 
   useEffect(() => {
-    // Must flush before reading cache so the escape hatch works
-    flushCacheIfRequested();
-
-    const cached = readCache();
-    if (cached) {
-      setVersion(cached.version);
-      setPlatforms(cached.platforms);
-      setLoading(false);
-      return;
-    }
+    if (initialCache) return; // already hydrated — no fetch needed
 
     const controller = new AbortController();
+    let isTimedOut = false;
+    const timeoutId = setTimeout(() => {
+      isTimedOut = true;
+      controller.abort();
+    }, 8000);
 
     async function fetchRelease() {
       try {
@@ -206,9 +208,15 @@ export function useGitHubRelease(): UseGitHubReleaseResult {
           console.warn("[useGitHubRelease] Partial asset match — skipping cache");
         }
       } catch (err) {
-        if ((err as Error).name === "AbortError") return;
+        if ((err as Error).name === "AbortError") {
+          if (isTimedOut) {
+            console.warn("[useGitHubRelease] Fetch timed out after 8s, using fallback");
+          }
+          return;
+        }
         console.warn("[useGitHubRelease] Fetch failed, using fallback:", err);
       } finally {
+        clearTimeout(timeoutId);
         setLoading(false);
       }
     }

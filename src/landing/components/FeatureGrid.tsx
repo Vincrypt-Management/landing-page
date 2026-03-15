@@ -52,6 +52,7 @@ function FeatureGrid() {
     <section className="landing-features" id="features">
       <div className="landing-features-container">
         <div className="landing-features-header">
+          <p className="ff-section-eyebrow">Features</p>
           <h2 className="landing-features-title">
             Built for serious investors.
           </h2>

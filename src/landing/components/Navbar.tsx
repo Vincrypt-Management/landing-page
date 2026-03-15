@@ -1,11 +1,9 @@
-import { Github } from "lucide-react";
-
 function Navbar() {
   return (
     <nav className="landing-navbar">
       <div className="landing-navbar-content">
         <a href="#" className="landing-logo">
-          <img src="logo.png" alt="Flowfolio" className="landing-logo-icon" />
+          <span className="ff-logo-dot" />
           Flowfolio
         </a>
         <ul className="landing-nav-links">
@@ -25,7 +23,7 @@ function Navbar() {
               rel="noopener noreferrer"
               className="landing-nav-btn landing-nav-btn-outline"
             >
-              <Github size={16} style={{ marginRight: "6px" }} />
+              <span className="ff-nav-dot" />
               GitHub
             </a>
           </li>

@@ -1,66 +1,69 @@
-import { FaWindows } from "react-icons/fa6";
-import { SiApple, SiLinux, SiAndroid } from "react-icons/si";
+import { useGitHubRelease } from "../hooks/useGitHubRelease";
 
 function Hero() {
   const demoVideo = `${import.meta.env.BASE_URL}flowfolio-app-showcase.mp4`;
+  const { version } = useGitHubRelease();
 
   return (
-    <section className="landing-hero">
-      <div className="landing-hero-inner">
-        <div className="landing-hero-content">
-          {/* Animated Badge */}
-          <a href="#features" className="landing-badge">
-            <span className="landing-badge-text">Now Available for Download →</span>
-          </a>
-
-          {/* Shiny Hero Title */}
-          <h1 className="landing-hero-title">
-            <span className="shiny-text">
-              Privacy-First Portfolio
-              <br />
-              Intelligence.
-            </span>
-          </h1>
-
-          <p className="landing-hero-subtitle">
-            Build explainable investment strategies that run entirely on your
-            machine. No cloud. No tracking. Your data, your rules.
-          </p>
-
-          {/* CTA Button */}
-          <div className="landing-install-btn">
-            <a href="#download" style={{ color: "inherit", textDecoration: "none" }}>
-              Download now
-            </a>
-            <div className="landing-install-divider" />
-            <div className="landing-install-icons">
-              <a href="#download" title="Windows">
-                <FaWindows size={24} />
-              </a>
-              <a href="#download" title="macOS">
-                <SiApple size={24} />
-              </a>
-              <a href="#download" title="Linux">
-                <SiLinux size={24} />
-              </a>
-              <a href="#download" title="Android">
-                <SiAndroid size={24} />
-              </a>
-            </div>
-          </div>
+    <section className="ff-hero">
+      <div className="ff-hero-inner">
+        {/* Eyebrow badge */}
+        <div className="ff-eyebrow-badge">
+          Open Source · Zero Telemetry · {version}
         </div>
 
-        {/* Product Video */}
-        <div className="landing-hero-video">
-          <div className="landing-hero-video-frame">
-            <video
-              src={demoVideo}
-              autoPlay
-              loop
-              muted
-              playsInline
-            />
+        {/* Rule */}
+        <div className="ff-hero-rule" />
+
+        {/* Headline */}
+        <h1 className="ff-hero-title">
+          Portfolio intelligence,<br />without the cloud.
+        </h1>
+
+        {/* Subtext */}
+        <p className="ff-hero-subtitle">
+          Build explainable investment strategies that run entirely on your
+          machine. No cloud. No tracking. Your data, your rules.
+        </p>
+
+        {/* Actions row */}
+        <div className="ff-hero-actions">
+          <a href="#download" className="ff-cta-primary">Download free →</a>
+          <a
+            href="https://github.com/Vincrypt-Management/flowfolio"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="ff-cta-secondary"
+          >
+            View on GitHub
+          </a>
+        </div>
+
+        {/* Trust stats */}
+        <div className="ff-trust-stats">
+          <div className="ff-trust-stat">
+            <span className="ff-trust-number">100%</span>
+            <span className="ff-trust-label">Offline</span>
           </div>
+          <div className="ff-trust-stat">
+            <span className="ff-trust-number">0 bytes</span>
+            <span className="ff-trust-label">Data shared</span>
+          </div>
+          <div className="ff-trust-stat">
+            <span className="ff-trust-number">4</span>
+            <span className="ff-trust-label">Platforms</span>
+          </div>
+          <div className="ff-trust-stat">
+            <span className="ff-trust-number">Free</span>
+            <span className="ff-trust-label">Forever</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Product video — full width, outside inner max-width */}
+      <div className="ff-hero-video-wrap">
+        <div className="ff-hero-video-container">
+          <video src={demoVideo} autoPlay loop muted playsInline />
         </div>
       </div>
     </section>
