@@ -30,7 +30,7 @@ const API_URL = `https://api.github.com/repos/${REPO}/releases/latest`;
 const CACHE_TTL_MS = 60 * 60 * 1000; // 1 hour
 const SCHEMA_VERSION = 1 as const;
 
-const FALLBACK_VERSION = "v0.2.0";
+const FALLBACK_VERSION = "v0.2.2";
 const FALLBACK_BASE =
   `https://github.com/Vincrypt-Management/flowfolio/releases/download/${FALLBACK_VERSION}`;
 
@@ -38,22 +38,22 @@ const FALLBACK_PLATFORMS: PlatformRelease[] = [
   {
     name: "Windows",
     version: FALLBACK_VERSION,
-    href: `${FALLBACK_BASE}/FlowFolio-0.2.0-windows-x64-setup.exe`,
+    href: `${FALLBACK_BASE}/FlowFolio-0.2.2-windows-x64-setup.exe`,
   },
   {
     name: "macOS",
     version: FALLBACK_VERSION,
-    href: `${FALLBACK_BASE}/FlowFolio-0.2.0-macos-aarch64.dmg`,
+    href: `${FALLBACK_BASE}/FlowFolio-0.2.2-macos-aarch64.dmg`,
   },
   {
     name: "Linux",
     version: FALLBACK_VERSION,
-    href: `${FALLBACK_BASE}/FlowFolio-0.2.0-linux-amd64.AppImage`,
+    href: `${FALLBACK_BASE}/FlowFolio-0.2.2-linux-amd64.AppImage`,
   },
   {
     name: "Android",
     version: FALLBACK_VERSION,
-    href: `${FALLBACK_BASE}/FlowFolio-0.2.0-android.apk`,
+    href: `${FALLBACK_BASE}/FlowFolio-0.2.2-android.apk`,
   },
 ];
 

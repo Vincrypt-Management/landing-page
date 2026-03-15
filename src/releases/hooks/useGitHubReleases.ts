@@ -32,34 +32,34 @@ const CACHE_TTL_MS = 10 * 60 * 1000; // 10 minutes
 
 const FALLBACK_RELEASES: Release[] = [
   {
-    tag_name: "v0.2.0",
-    name: "v0.2.0 — Initial Release",
-    body: `## What's new\n\n- Vibe Studio: design strategies with natural language\n- Explainable Rankings with factor breakdowns\n- Portfolio Management with drift tracking\n- Backtest Lab for offline historical simulation\n- Investment Journal with version history\n- Quantitative Analysis (RSI, MACD, Bollinger Bands)\n- 100% offline — no cloud, no telemetry`,
-    published_at: "2025-01-01T00:00:00Z",
+    tag_name: "v0.2.2",
+    name: "v0.2.2",
+    body: `## What's new\n\n- Bug fixes and stability improvements`,
+    published_at: new Date().toISOString(),
     prerelease: false,
     assets: [
       {
-        name: "FlowFolio-0.2.0-windows-x64-setup.exe",
+        name: "FlowFolio-0.2.2-windows-x64-setup.exe",
         browser_download_url:
-          "https://github.com/Vincrypt-Management/flowfolio/releases/download/v0.2.0/FlowFolio-0.2.0-windows-x64-setup.exe",
+          "https://github.com/Vincrypt-Management/flowfolio/releases/download/v0.2.2/FlowFolio-0.2.2-windows-x64-setup.exe",
         size: 0,
       },
       {
-        name: "FlowFolio-0.2.0-macos-aarch64.dmg",
+        name: "FlowFolio-0.2.2-macos-aarch64.dmg",
         browser_download_url:
-          "https://github.com/Vincrypt-Management/flowfolio/releases/download/v0.2.0/FlowFolio-0.2.0-macos-aarch64.dmg",
+          "https://github.com/Vincrypt-Management/flowfolio/releases/download/v0.2.2/FlowFolio-0.2.2-macos-aarch64.dmg",
         size: 0,
       },
       {
-        name: "FlowFolio-0.2.0-linux-amd64.AppImage",
+        name: "FlowFolio-0.2.2-linux-amd64.AppImage",
         browser_download_url:
-          "https://github.com/Vincrypt-Management/flowfolio/releases/download/v0.2.0/FlowFolio-0.2.0-linux-amd64.AppImage",
+          "https://github.com/Vincrypt-Management/flowfolio/releases/download/v0.2.2/FlowFolio-0.2.2-linux-amd64.AppImage",
         size: 0,
       },
       {
-        name: "FlowFolio-0.2.0-android.apk",
+        name: "FlowFolio-0.2.2-android.apk",
         browser_download_url:
-          "https://github.com/Vincrypt-Management/flowfolio/releases/download/v0.2.0/FlowFolio-0.2.0-android.apk",
+          "https://github.com/Vincrypt-Management/flowfolio/releases/download/v0.2.2/FlowFolio-0.2.2-android.apk",
         size: 0,
       },
     ],
