@@ -28,6 +28,13 @@ function Footer() {
           </a>
           <a href="releases.html">Releases</a>
           <a href="privacy.html">Privacy</a>
+          <a
+            href="https://www.instagram.com/flowfolio.ai/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Instagram
+          </a>
         </div>
       </div>
     </footer>
