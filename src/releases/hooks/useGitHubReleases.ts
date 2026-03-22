@@ -32,38 +32,40 @@ const CACHE_KEY = "ff_releases_cache";
 const CACHE_TTL_MS = 10 * 60 * 1000; // 10 minutes
 
 const BASE_RELEASE_URL = `https://github.com/Vincrypt-Management/flowfolio/releases/tag`;
+const BASE_DOWNLOAD_URL = `https://github.com/Vincrypt-Management/flowfolio/releases/download`;
+
+const LATEST_VERSION = __LATEST_RELEASE_VERSION__;
+const LATEST_VERSION_NO_V = LATEST_VERSION.startsWith("v")
+  ? LATEST_VERSION.slice(1)
+  : LATEST_VERSION;
 
 const FALLBACK_RELEASES: Release[] = [
   {
-    tag_name: "v0.2.2",
-    name: "v0.2.2",
+    tag_name: LATEST_VERSION,
+    name: LATEST_VERSION,
     body: `## What's new\n\n- Bug fixes and stability improvements`,
     published_at: "2025-03-15T00:00:00Z",
     prerelease: false,
-    html_url: `${BASE_RELEASE_URL}/v0.2.2`,
+    html_url: `${BASE_RELEASE_URL}/${LATEST_VERSION}`,
     assets: [
       {
-        name: "FlowFolio-0.2.2-windows-x64-setup.exe",
-        browser_download_url:
-          "https://github.com/Vincrypt-Management/flowfolio/releases/download/v0.2.2/FlowFolio-0.2.2-windows-x64-setup.exe",
+        name: `FlowFolio-${LATEST_VERSION_NO_V}-windows-x64-setup.exe`,
+        browser_download_url: `${BASE_DOWNLOAD_URL}/${LATEST_VERSION}/FlowFolio-${LATEST_VERSION_NO_V}-windows-x64-setup.exe`,
         size: 0,
       },
       {
-        name: "FlowFolio-0.2.2-macos-aarch64.dmg",
-        browser_download_url:
-          "https://github.com/Vincrypt-Management/flowfolio/releases/download/v0.2.2/FlowFolio-0.2.2-macos-aarch64.dmg",
+        name: `FlowFolio-${LATEST_VERSION_NO_V}-macos-aarch64.dmg`,
+        browser_download_url: `${BASE_DOWNLOAD_URL}/${LATEST_VERSION}/FlowFolio-${LATEST_VERSION_NO_V}-macos-aarch64.dmg`,
         size: 0,
       },
       {
-        name: "FlowFolio-0.2.2-linux-amd64.AppImage",
-        browser_download_url:
-          "https://github.com/Vincrypt-Management/flowfolio/releases/download/v0.2.2/FlowFolio-0.2.2-linux-amd64.AppImage",
+        name: `FlowFolio-${LATEST_VERSION_NO_V}-linux-amd64.AppImage`,
+        browser_download_url: `${BASE_DOWNLOAD_URL}/${LATEST_VERSION}/FlowFolio-${LATEST_VERSION_NO_V}-linux-amd64.AppImage`,
         size: 0,
       },
       {
-        name: "FlowFolio-0.2.2-android.apk",
-        browser_download_url:
-          "https://github.com/Vincrypt-Management/flowfolio/releases/download/v0.2.2/FlowFolio-0.2.2-android.apk",
+        name: `FlowFolio-${LATEST_VERSION_NO_V}-android.apk`,
+        browser_download_url: `${BASE_DOWNLOAD_URL}/${LATEST_VERSION}/FlowFolio-${LATEST_VERSION_NO_V}-android.apk`,
         size: 0,
       },
     ],
