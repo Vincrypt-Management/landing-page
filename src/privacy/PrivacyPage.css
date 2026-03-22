@@ -28,6 +28,16 @@ body {
 .pp-page { max-width: 960px; margin: 0 auto; padding: 0 40px; }
 
 /* Navbar */
+.pp-navbar-wrap {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(8, 8, 8, 0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--ff-border);
+}
+
 .pp-navbar {
   max-width: 960px;
   margin: 0 auto;
@@ -36,7 +46,6 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid var(--ff-border);
 }
 .pp-nav-logo {
   font-style: italic;
@@ -279,7 +288,10 @@ body {
 
 /* Responsive */
 @media (max-width: 600px) {
+  .pp-navbar { padding: 0 20px; }
+  .pp-nav-links { display: none; }
   .pp-page { padding: 0 20px; }
   .pp-never-grid { grid-template-columns: 1fr; }
   .pp-arch-diagram { justify-content: center; }
+  .pp-footer { flex-direction: column; gap: 1rem; text-align: center; }
 }

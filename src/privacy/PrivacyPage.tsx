@@ -24,20 +24,25 @@ const neverItems = [
 
 // ── Verify items ──────────────────────────────────────────────────────────────
 
+const REPO = "https://github.com/Vincrypt-Management/flowfolio";
+
 const verifyItems = [
   {
     title: "Network calls",
     desc: "See exactly what URLs the app fetches",
+    href: `${REPO}/blob/main/src/core/api/client.ts`,
     right: <span className="pp-verify-item-right"><span>src/core/api/client.ts</span><ArrowRight size={12} /></span>,
   },
   {
     title: "Local storage",
     desc: "All data written to the local filesystem",
+    href: `${REPO}/blob/main/src/services/localCache.ts`,
     right: <span className="pp-verify-item-right"><span>src/services/localCache.ts</span><ArrowRight size={12} /></span>,
   },
   {
     title: "No telemetry",
     desc: "Search the entire repo — no analytics SDK",
+    href: REPO,
     right: <span className="pp-verify-item-right"><Github size={12} /><span>View on GitHub</span><ArrowRight size={12} /></span>,
   },
 ];
@@ -48,19 +53,21 @@ function PrivacyPage() {
   return (
     <div>
       {/* Navbar */}
-      <nav className="pp-navbar">
-        <a href="index.html" className="pp-nav-logo">
-          <span className="pp-nav-dot" />
-          Flowfolio
-        </a>
-        <ul className="pp-nav-links">
-          <li><a href="index.html#features">Features</a></li>
-          <li><a href="features.html">Docs</a></li>
-          <li><a href="releases.html">Releases</a></li>
-          <li><a href="privacy.html" className="active">Privacy</a></li>
-          <li><a href="index.html#download">Download</a></li>
-        </ul>
-      </nav>
+      <div className="pp-navbar-wrap">
+        <nav className="pp-navbar">
+          <a href="index.html" className="pp-nav-logo">
+            <span className="pp-nav-dot" />
+            Flowfolio
+          </a>
+          <ul className="pp-nav-links">
+            <li><a href="index.html#features">Features</a></li>
+            <li><a href="features.html">Docs</a></li>
+            <li><a href="releases.html">Releases</a></li>
+            <li><a href="privacy.html" className="active">Privacy</a></li>
+            <li><a href="index.html#download">Download</a></li>
+          </ul>
+        </nav>
+      </div>
 
       <div className="pp-page">
         {/* Hero */}
@@ -150,7 +157,7 @@ function PrivacyPage() {
           <h2 className="pp-section-title">Verify it yourself</h2>
           <div className="pp-verify-list">
             {verifyItems.map((item) => (
-              <a key={item.title} href="#" className="pp-verify-item">
+              <a key={item.title} href={item.href} className="pp-verify-item" target="_blank" rel="noopener noreferrer">
                 <div className="pp-verify-item-left">
                   <h4>{item.title}</h4>
                   <p>{item.desc}</p>
