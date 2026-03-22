@@ -23,7 +23,7 @@ interface CommitActivityCacheEntry {
 // ── Constants ─────────────────────────────────────────────────────────────────
 
 const API_URL =
-  "https://api.github.com/repos/vincrypt/flowfolio/stats/commit_activity";
+  "https://api.github.com/repos/Vincrypt-Management/flowfolio/stats/commit_activity";
 const CACHE_TTL_MS = 6 * 60 * 60 * 1000; // 6 hours
 
 const FALLBACK_WEEKS: CommitWeek[] = Array.from({ length: 8 }, (_, i) => ({

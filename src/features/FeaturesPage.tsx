@@ -122,7 +122,7 @@ function FeaturesPage() {
           >
             {sidebarOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
-          <a href="landing.html" className="features-back">
+          <a href="index.html" className="features-back">
             <span className="ff-logo-dot" />
             <span>Flowfolio</span>
           </a>
@@ -167,7 +167,7 @@ function FeaturesPage() {
         </nav>
 
         <div className="features-sidebar-footer">
-          <a href="landing.html#download" className="features-sidebar-cta">
+          <a href="index.html#download" className="features-sidebar-cta">
             Download Flowfolio
           </a>
         </div>
@@ -1307,7 +1307,7 @@ PortfolioConfig {
               Stop guessing. Start composing. Download Flowfolio and build
               your first strategy in minutes.
             </p>
-            <a href="landing.html#download" className="features-cta-btn">
+            <a href="index.html#download" className="features-cta-btn">
               Download Flowfolio
               <ArrowRight size={16} />
             </a>
@@ -1334,7 +1334,7 @@ PortfolioConfig {
               <Github size={16} />
               GitHub
             </a>
-            <a href="landing.html">
+            <a href="index.html">
               <FileText size={16} />
               Home
             </a>

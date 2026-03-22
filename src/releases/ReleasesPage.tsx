@@ -1,6 +1,6 @@
 import { FaWindows } from "react-icons/fa6";
 import { SiApple, SiLinux, SiAndroid } from "react-icons/si";
-import { Download } from "lucide-react";
+import { Download, ExternalLink } from "lucide-react";
 import { useGitHubReleases, formatBytes } from "./hooks/useGitHubReleases";
 import type { ReleaseAsset } from "./hooks/useGitHubReleases";
 import "./ReleasesPage.css";
@@ -120,6 +120,17 @@ function ReleaseCard({ release, latest }: { release: import("./hooks/useGitHubRe
             {release.tag_name}
           </span>
           <span className="rp-release-date">{formatDate(release.published_at)}</span>
+          {release.html_url && (
+            <a
+              href={release.html_url}
+              className="rp-view-github"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <ExternalLink size={12} />
+              View on GitHub
+            </a>
+          )}
         </div>
         {release.name && release.name !== release.tag_name && (
           <h2 className="rp-release-name">{release.name}</h2>
@@ -166,15 +177,15 @@ function ReleasesPage() {
       {/* Navbar */}
       <nav className="rp-navbar">
         <div className="rp-navbar-content">
-          <a href="landing.html" className="rp-logo">
+          <a href="index.html" className="rp-logo">
             <span className="ff-logo-dot" />
             Flowfolio
           </a>
           <ul className="rp-nav-links">
-            <li><a href="landing.html#features">Features</a></li>
+            <li><a href="index.html#features">Features</a></li>
             <li><a href="features.html">Docs</a></li>
             <li><a href="privacy.html">Privacy</a></li>
-            <li><a href="landing.html#download">Download</a></li>
+            <li><a href="index.html#download">Download</a></li>
             <li>
               <a
                 href="https://github.com/Vincrypt-Management/flowfolio"
@@ -237,7 +248,7 @@ function ReleasesPage() {
           <div className="rp-footer-links">
             <a href="https://github.com/Vincrypt-Management/flowfolio" target="_blank" rel="noopener noreferrer">GitHub</a>
             <a href="features.html">Documentation</a>
-            <a href="landing.html">Home</a>
+            <a href="index.html">Home</a>
             <a href="privacy.html">Privacy</a>
           </div>
         </div>

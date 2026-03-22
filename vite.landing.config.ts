@@ -12,7 +12,7 @@ export default defineConfig({
     emptyOutDir: true,
     rollupOptions: {
       input: {
-        landing: resolve(__dirname, "landing.html"),
+        index: resolve(__dirname, "index.html"),
         features: resolve(__dirname, "features.html"),
         releases: resolve(__dirname, "releases.html"),
         privacy: resolve(__dirname, "privacy.html"),
@@ -21,6 +21,6 @@ export default defineConfig({
   },
   server: {
     port: 3000,
-    open: "/landing.html",
+    open: "/",
   },
 });

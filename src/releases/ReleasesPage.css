@@ -264,6 +264,21 @@ body {
   color: var(--ff-muted);
 }
 
+.rp-view-github {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  color: var(--ff-muted);
+  text-decoration: none;
+  margin-left: auto;
+  transition: color 0.2s;
+}
+
+.rp-view-github:hover {
+  color: var(--ff-green);
+}
+
 .rp-release-name {
   font-family: 'Cormorant Garamond', Georgia, serif;
   font-style: italic;

@@ -14,6 +14,7 @@ export interface Release {
   body: string;
   published_at: string;
   prerelease: boolean;
+  html_url: string;
   assets: ReleaseAsset[];
 }
 
@@ -26,9 +27,11 @@ export interface UseGitHubReleasesResult {
 // ── Constants ─────────────────────────────────────────────────────────────────
 
 const REPO = "Vincrypt-Management/flowfolio";
-const API_URL = `https://api.github.com/repos/${REPO}/releases`;
+const API_URL = `https://api.github.com/repos/${REPO}/releases?per_page=10`;
 const CACHE_KEY = "ff_releases_cache";
 const CACHE_TTL_MS = 10 * 60 * 1000; // 10 minutes
+
+const BASE_RELEASE_URL = `https://github.com/Vincrypt-Management/flowfolio/releases/tag`;
 
 const FALLBACK_RELEASES: Release[] = [
   {
@@ -37,6 +40,7 @@ const FALLBACK_RELEASES: Release[] = [
     body: `## What's new\n\n- Bug fixes and stability improvements`,
     published_at: "2025-03-15T00:00:00Z",
     prerelease: false,
+    html_url: `${BASE_RELEASE_URL}/v0.2.2`,
     assets: [
       {
         name: "FlowFolio-0.2.2-windows-x64-setup.exe",
@@ -70,6 +74,7 @@ const FALLBACK_RELEASES: Release[] = [
     body: `## What's new\n\n- Bug fixes and stability improvements`,
     published_at: "2025-02-15T00:00:00Z",
     prerelease: false,
+    html_url: `${BASE_RELEASE_URL}/v0.2.1`,
     assets: [
       {
         name: "FlowFolio-0.2.1-windows-x64-setup.exe",
@@ -103,6 +108,7 @@ const FALLBACK_RELEASES: Release[] = [
     body: `## What's new\n\n- Vibe Studio: design strategies with natural language\n- Explainable Rankings with factor breakdowns\n- Portfolio Management with drift tracking\n- Backtest Lab for offline historical simulation\n- Investment Journal with version history\n- Quantitative Analysis (RSI, MACD, Bollinger Bands)\n- 100% offline — no cloud, no telemetry`,
     published_at: "2025-01-01T00:00:00Z",
     prerelease: false,
+    html_url: `${BASE_RELEASE_URL}/v0.2.0`,
     assets: [
       {
         name: "FlowFolio-0.2.0-windows-x64-setup.exe",
