@@ -2,6 +2,8 @@ import { FaWindows } from "react-icons/fa6";
 import { SiApple, SiLinux, SiAndroid } from "react-icons/si";
 import { useState } from "react";
 import { ExternalLink, ShieldCheck, Github, Menu, X } from "lucide-react";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import { useGitHubReleases, formatBytes } from "./hooks/useGitHubReleases";
 import type { ReleaseAsset } from "./hooks/useGitHubReleases";
 import "./ReleasesPage.css";
@@ -98,72 +100,6 @@ function formatDate(iso: string): string {
   });
 }
 
-function parseBody(body: string): string[] {
-  return body
-    .split("\n")
-    .map((l) => l.trim())
-    .filter((l) => l.length > 0);
-}
-
-// Inline markdown: **bold**, *italic*, `code`, [text](url), and bare URLs.
-const INLINE_TOKEN_RE =
-  /(\*\*[^*\n]+\*\*|\*[^*\n]+\*|`[^`\n]+`|\[[^\]\n]+\]\([^)\s]+\)|https?:\/\/[^\s)]+)/g;
-const LINK_RE = /^\[([^\]]+)\]\(([^)\s]+)\)$/;
-
-function renderInline(text: string): React.ReactNode[] {
-  const out: React.ReactNode[] = [];
-  let lastIndex = 0;
-  let key = 0;
-  text.replace(INLINE_TOKEN_RE, (match, _g, offset: number) => {
-    if (offset > lastIndex) out.push(text.slice(lastIndex, offset));
-
-    if (match.startsWith("**") && match.endsWith("**")) {
-      out.push(<strong key={key++}>{match.slice(2, -2)}</strong>);
-    } else if (match.startsWith("*") && match.endsWith("*")) {
-      out.push(<em key={key++}>{match.slice(1, -1)}</em>);
-    } else if (match.startsWith("`") && match.endsWith("`")) {
-      out.push(<code key={key++} className="rp-release-note-code">{match.slice(1, -1)}</code>);
-    } else if (match.startsWith("[")) {
-      const m = match.match(LINK_RE);
-      if (m) {
-        out.push(
-          <a key={key++} href={m[2]} target="_blank" rel="noopener noreferrer" className="rp-release-note-link">
-            {m[1]}
-          </a>
-        );
-      } else {
-        out.push(match);
-      }
-    } else if (/^https?:\/\//.test(match)) {
-      out.push(
-        <a key={key++} href={match} target="_blank" rel="noopener noreferrer" className="rp-release-note-link">
-          {match}
-        </a>
-      );
-    } else {
-      out.push(match);
-    }
-
-    lastIndex = offset + match.length;
-    return match;
-  });
-  if (lastIndex < text.length) out.push(text.slice(lastIndex));
-  return out;
-}
-
-function renderBodyLine(line: string, i: number) {
-  if (line.startsWith("## ")) {
-    return <h3 key={i} className="rp-release-note-heading">{renderInline(line.slice(3))}</h3>;
-  }
-  if (line.startsWith("### ")) {
-    return <h4 key={i} className="rp-release-note-subheading">{renderInline(line.slice(4))}</h4>;
-  }
-  if (line.startsWith("- ") || line.startsWith("* ")) {
-    return <li key={i} className="rp-release-note-item">{renderInline(line.slice(2))}</li>;
-  }
-  return <p key={i} className="rp-release-note-para">{renderInline(line)}</p>;
-}
-
 // ── Sub-components ────────────────────────────────────────────────────────────
 
 function ReleaseSkeleton() {
@@ -181,24 +117,6 @@ function ReleaseCard({ release, latest }: { release: import("./hooks/useGitHubRe
   const installerAssets = release.assets.filter((a) => !isAuxiliaryAsset(a.name));
   const classified = classifyAssets(installerAssets);
   const checksumAsset = pickChecksumAsset(release.assets);
-  const lines = parseBody(release.body || "");
-  // Wrap consecutive li elements
-  const rendered: React.ReactNode[] = [];
-  let listBuf: React.ReactNode[] = [];
-  lines.forEach((line, i) => {
-    if (line.startsWith("- ") || line.startsWith("* ")) {
-      listBuf.push(renderBodyLine(line, i));
-    } else {
-      if (listBuf.length) {
-        rendered.push(<ul key={`ul-${i}`} className="rp-release-note-list">{listBuf}</ul>);
-        listBuf = [];
-      }
-      rendered.push(renderBodyLine(line, i));
-    }
-  });
-  if (listBuf.length) {
-    rendered.push(<ul key="ul-end" className="rp-release-note-list">{listBuf}</ul>);
-  }
 
   return (
     <article className="rp-release-card">
@@ -227,8 +145,62 @@ function ReleaseCard({ release, latest }: { release: import("./hooks/useGitHubRe
         )}
       </div>
 
-      {rendered.length > 0 && (
-        <div className="rp-release-notes">{rendered}</div>
+      {release.body && (
+        <div className="rp-release-notes">
+          <ReactMarkdown
+            remarkPlugins={[remarkGfm]}
+            components={{
+              h1: ({ children }) => <h3 className="rp-md-h2">{children}</h3>,
+              h2: ({ children }) => <h3 className="rp-md-h2">{children}</h3>,
+              h3: ({ children }) => <h4 className="rp-md-h3">{children}</h4>,
+              h4: ({ children }) => <h4 className="rp-md-h3">{children}</h4>,
+              h5: ({ children }) => <h5 className="rp-md-h3">{children}</h5>,
+              h6: ({ children }) => <h6 className="rp-md-h3">{children}</h6>,
+              p: ({ children }) => <p className="rp-md-p">{children}</p>,
+              ul: ({ children }) => <ul className="rp-md-ul">{children}</ul>,
+              ol: ({ children }) => <ol className="rp-md-ol">{children}</ol>,
+              li: ({ children }) => <li className="rp-md-li">{children}</li>,
+              a: ({ href, children }) => (
+                <a href={href} target="_blank" rel="noopener noreferrer" className="rp-md-a">
+                  {children}
+                </a>
+              ),
+              code: ({ children, className }) => {
+                const isBlock = className?.startsWith("language-");
+                return isBlock
+                  ? <code className={`rp-md-code-block ${className ?? ""}`}>{children}</code>
+                  : <code className="rp-md-code">{children}</code>;
+              },
+              pre: ({ children }) => <pre className="rp-md-pre">{children}</pre>,
+              blockquote: ({ children }) => <blockquote className="rp-md-blockquote">{children}</blockquote>,
+              hr: () => <hr className="rp-md-hr" />,
+              strong: ({ children }) => <strong className="rp-md-strong">{children}</strong>,
+              em: ({ children }) => <em className="rp-md-em">{children}</em>,
+              del: ({ children }) => <del className="rp-md-del">{children}</del>,
+              table: ({ children }) => (
+                <div className="rp-md-table-wrap">
+                  <table className="rp-md-table">{children}</table>
+                </div>
+              ),
+              thead: ({ children }) => <thead className="rp-md-thead">{children}</thead>,
+              tbody: ({ children }) => <tbody>{children}</tbody>,
+              tr: ({ children }) => <tr className="rp-md-tr">{children}</tr>,
+              th: ({ children }) => <th className="rp-md-th">{children}</th>,
+              td: ({ children }) => <td className="rp-md-td">{children}</td>,
+              input: ({ checked, disabled }) => (
+                <input
+                  type="checkbox"
+                  checked={checked}
+                  disabled={disabled}
+                  readOnly
+                  className="rp-md-checkbox"
+                />
+              ),
+            }}
+          >
+            {release.body}
+          </ReactMarkdown>
+        </div>
       )}
 
       {classified.length > 0 && (
