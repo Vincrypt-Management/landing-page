@@ -190,10 +190,11 @@ body {
   gap: 14px;
   align-items: flex-start;
 }
-.pp-never-x {
-  width: 22px;
-  height: 22px;
-  border-radius: 4px;
+.pp-never-icon {
+  position: relative;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
   background: rgba(255, 80, 80, 0.08);
   border: 1px solid rgba(255, 80, 80, 0.2);
   display: flex;
@@ -203,7 +204,21 @@ body {
   margin-top: 1px;
   color: #ff6b6b;
 }
-.pp-never-x svg { width: 11px; height: 11px; stroke: #ff6b6b; fill: none; stroke-width: 2.5; stroke-linecap: round; }
+
+/* Diagonal "denied" slash across the icon */
+.pp-never-icon::after {
+  content: '';
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  left: 50%;
+  width: 1.5px;
+  background: #ff6b6b;
+  transform: translateX(-50%) rotate(45deg);
+  border-radius: 1px;
+  opacity: 0.85;
+  pointer-events: none;
+}
 .pp-never-text h4 { font-size: 13px; font-weight: 500; margin-bottom: 4px; }
 .pp-never-text p { font-size: 12px; color: var(--ff-muted); line-height: 1.6; }
 

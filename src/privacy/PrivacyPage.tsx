@@ -1,23 +1,47 @@
 import { useState } from "react";
-import { Monitor, Activity, Server, Cloud, X, ArrowRight, Github, Menu } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
+import {
+  Monitor,
+  Activity,
+  Server,
+  Cloud,
+  X,
+  ArrowRight,
+  Github,
+  Menu,
+  Database,
+  BarChart3,
+  UserPlus,
+  Send,
+} from "lucide-react";
 import "./PrivacyPage.css";
 
 // ── Never-do items ─────────────────────────────────────────────────────────────
 
-const neverItems = [
+interface NeverItem {
+  icon: LucideIcon;
+  title: string;
+  desc: string;
+}
+
+const neverItems: NeverItem[] = [
   {
+    icon: Database,
     title: "Collect portfolio data",
     desc: "Your holdings, strategies, and journal entries never leave your machine.",
   },
   {
+    icon: BarChart3,
     title: "Track usage or analytics",
     desc: "No crash reports, usage events, or feature tracking. Zero telemetry.",
   },
   {
+    icon: UserPlus,
     title: "Require an account",
     desc: "Download and use. No sign-up, no email, no license key.",
   },
   {
+    icon: Send,
     title: "Phone home on startup",
     desc: "The only network call the app makes is to fetch market data you explicitly request.",
   },
@@ -110,14 +134,14 @@ function PrivacyPage() {
         <section className="pp-section">
           <h2 className="pp-section-title">What we never do</h2>
           <div className="pp-never-grid">
-            {neverItems.map((item) => (
-              <div key={item.title} className="pp-never-item">
-                <div className="pp-never-x">
-                  <X />
+            {neverItems.map(({ icon: Icon, title, desc }) => (
+              <div key={title} className="pp-never-item">
+                <div className="pp-never-icon" aria-hidden="true">
+                  <Icon size={16} />
                 </div>
                 <div className="pp-never-text">
-                  <h4>{item.title}</h4>
-                  <p>{item.desc}</p>
+                  <h4>{title}</h4>
+                  <p>{desc}</p>
                 </div>
               </div>
             ))}
