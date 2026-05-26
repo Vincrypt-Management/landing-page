@@ -303,10 +303,9 @@ function ReleasesPage() {
             id="rp-nav-links"
             className={`rp-nav-links${menuOpen ? " rp-nav-links--open" : ""}`}
           >
-            <li><a href="index.html#features" onClick={closeMenu}>Features</a></li>
-            <li><a href="features.html" onClick={closeMenu}>Docs</a></li>
-            <li><a href="privacy.html" onClick={closeMenu}>Privacy</a></li>
+            <li><a href="features.html" onClick={closeMenu}>Features</a></li>
             <li><a href="releases.html" aria-current="page" onClick={closeMenu}>Releases</a></li>
+            <li><a href="privacy.html" onClick={closeMenu}>Privacy</a></li>
             <li><a href="index.html#download" onClick={closeMenu}>Download</a></li>
             <li>
               <a

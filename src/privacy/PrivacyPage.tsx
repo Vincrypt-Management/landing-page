@@ -77,8 +77,7 @@ function PrivacyPage() {
             id="pp-nav-links"
             className={`pp-nav-links${menuOpen ? " pp-nav-links--open" : ""}`}
           >
-            <li><a href="index.html#features" onClick={closeMenu}>Features</a></li>
-            <li><a href="features.html" onClick={closeMenu}>Docs</a></li>
+            <li><a href="features.html" onClick={closeMenu}>Features</a></li>
             <li><a href="releases.html" onClick={closeMenu}>Releases</a></li>
             <li><a href="privacy.html" className="active" aria-current="page" onClick={closeMenu}>Privacy</a></li>
             <li><a href="index.html#download" onClick={closeMenu}>Download</a></li>

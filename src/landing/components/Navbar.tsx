@@ -29,8 +29,7 @@ function Navbar() {
           id="landing-nav-links"
           className={`landing-nav-links${open ? " landing-nav-links--open" : ""}`}
         >
-          <li><a href="#features" onClick={close}>Features</a></li>
-          <li><a href="features.html" onClick={close}>Docs</a></li>
+          <li><a href="features.html" onClick={close}>Features</a></li>
           <li><a href="releases.html" onClick={close}>Releases</a></li>
           <li><a href="privacy.html" onClick={close}>Privacy</a></li>
           <li><a href="#download" onClick={close}>Download</a></li>
