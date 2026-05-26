@@ -17,12 +17,12 @@ export function ActivityStrip() {
   const showBars = !activityLoading;
 
   return (
-    <section className="ff-activity-strip-section">
+    <section className="ff-activity-strip-section" aria-label="Project activity">
       <div className="ff-activity-strip-inner">
 
         {/* Left: version + date badge */}
         <div className="ff-activity-badge">
-          <div className="ff-activity-dot" />
+          <div className="ff-activity-dot" aria-hidden="true" />
           <span className="ff-activity-version">
             {showBadge ? version : "—"}
           </span>
@@ -33,10 +33,14 @@ export function ActivityStrip() {
           )}
         </div>
 
-        <div className="ff-activity-divider" />
+        <div className="ff-activity-divider" aria-hidden="true" />
 
         {/* Right: 8 commit activity bars + month total */}
-        <div className="ff-activity-bars">
+        <div
+          className="ff-activity-bars"
+          role="img"
+          aria-label={`Commit activity over the last 8 weeks: ${monthTotal} commits in the last 4 weeks`}
+        >
           {showBars &&
             weeks.map((w, i) => {
               const heightPct = (w.total / maxTotal) * 100;
@@ -47,6 +51,7 @@ export function ActivityStrip() {
                   className={`ff-activity-bar${isRecent ? " ff-activity-bar--recent" : ""}`}
                   style={{ height: `max(4px, ${heightPct}%)` }}
                   title={`${w.total} commits`}
+                  aria-hidden="true"
                 />
               );
             })}

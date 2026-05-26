@@ -1,6 +1,7 @@
 import { FaWindows } from "react-icons/fa6";
 import { SiApple, SiLinux, SiAndroid } from "react-icons/si";
-import { Download, ExternalLink } from "lucide-react";
+import { useState } from "react";
+import { ExternalLink, ShieldCheck, Github, Menu, X } from "lucide-react";
 import { useGitHubReleases, formatBytes } from "./hooks/useGitHubReleases";
 import type { ReleaseAsset } from "./hooks/useGitHubReleases";
 import "./ReleasesPage.css";
@@ -9,41 +10,82 @@ import "./ReleasesPage.css";
 
 interface ClassifiedAsset {
   platform: string;
-  label: string;
+  platformLabel: string;
+  variantLabel: string; // e.g., ".msi", "Apple Silicon", "Intel"
   icon: React.ReactNode;
   asset: ReleaseAsset;
 }
 
+// Detect file format / arch variant from filename so users can pick the right build.
+function describeVariant(name: string): string {
+  const lower = name.toLowerCase();
+  // Architecture hints first
+  if (/aarch64|arm64|apple[-_ ]?silicon/.test(lower)) {
+    if (lower.endsWith(".dmg")) return "Apple Silicon · .dmg";
+    return "ARM64";
+  }
+  if (/x64|x86_64|amd64|intel/.test(lower)) {
+    if (lower.endsWith(".dmg")) return "Intel · .dmg";
+    if (lower.endsWith(".exe")) return ".exe installer";
+    if (lower.endsWith(".msi")) return ".msi installer";
+    if (lower.endsWith(".appimage")) return ".AppImage";
+    if (lower.endsWith(".deb")) return ".deb";
+  }
+  // Fallback: use the file extension
+  const ext = lower.match(/\.[a-z0-9]+$/);
+  return ext ? ext[0] : "";
+}
+
 function classifyAssets(assets: ReleaseAsset[]): ClassifiedAsset[] {
-  const matchers: Array<{ platform: string; label: string; icon: React.ReactNode; keywords: string[] }> = [
-    { platform: "android", label: "Android", icon: <SiAndroid size={16} />, keywords: ["android", ".apk"] },
-    { platform: "windows", label: "Windows", icon: <FaWindows size={16} />, keywords: ["windows", ".exe", ".msi"] },
-    { platform: "macos", label: "macOS", icon: <SiApple size={16} />, keywords: ["macos", "darwin", ".dmg"] },
-    { platform: "linux", label: "Linux", icon: <SiLinux size={16} />, keywords: ["linux", ".appimage", ".deb"] },
+  const matchers: Array<{
+    platform: string;
+    platformLabel: string;
+    icon: React.ReactNode;
+    keywords: string[];
+  }> = [
+    { platform: "windows", platformLabel: "Windows", icon: <FaWindows size={16} />, keywords: ["windows", ".exe", ".msi"] },
+    { platform: "macos",   platformLabel: "macOS",   icon: <SiApple size={16} />,   keywords: ["macos", "darwin", ".dmg"] },
+    { platform: "linux",   platformLabel: "Linux",   icon: <SiLinux size={16} />,   keywords: [".appimage", ".deb", "linux"] },
+    { platform: "android", platformLabel: "Android", icon: <SiAndroid size={16} />, keywords: ["android", ".apk"] },
   ];
 
   const results: ClassifiedAsset[] = [];
-  for (const { platform, label, icon, keywords } of matchers) {
-    const match = assets.find((a) =>
-      keywords.some((kw) => a.name.toLowerCase().includes(kw.toLowerCase()))
-    );
-    if (match) {
-      results.push({ platform, label, icon, asset: match });
-    }
-  }
-  // Unrecognized assets
-  const matched = results.map((r) => r.asset.name);
-  for (const asset of assets) {
-    if (!matched.includes(asset.name)) {
+  const claimed = new Set<string>();
+
+  for (const { platform, platformLabel, icon, keywords } of matchers) {
+    const matches = assets.filter((a) => {
+      if (claimed.has(a.name)) return false;
+      const lower = a.name.toLowerCase();
+      return keywords.some((kw) => lower.includes(kw));
+    });
+    for (const asset of matches) {
+      claimed.add(asset.name);
       results.push({
-        platform: "other",
-        label: asset.name,
-        icon: <Download size={16} />,
+        platform,
+        platformLabel,
+        variantLabel: describeVariant(asset.name),
+        icon,
         asset,
       });
     }
   }
   return results;
+}
+
+// Hide noisy auxiliary files from the downloads grid.
+function isAuxiliaryAsset(name: string): boolean {
+  const lower = name.toLowerCase();
+  return (
+    lower.includes("checksum") ||
+    lower.endsWith(".txt") ||
+    lower.endsWith(".sha256") ||
+    lower.endsWith(".sig") ||
+    lower.endsWith(".asc")
+  );
+}
+
+function pickChecksumAsset(assets: ReleaseAsset[]): ReleaseAsset | null {
+  return assets.find((a) => /checksum|sha256/i.test(a.name)) ?? null;
 }
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
@@ -63,17 +105,63 @@ function parseBody(body: string): string[] {
     .filter((l) => l.length > 0);
 }
 
+// Inline markdown: **bold**, *italic*, `code`, [text](url), and bare URLs.
+const INLINE_TOKEN_RE =
+  /(\*\*[^*\n]+\*\*|\*[^*\n]+\*|`[^`\n]+`|\[[^\]\n]+\]\([^)\s]+\)|https?:\/\/[^\s)]+)/g;
+const LINK_RE = /^\[([^\]]+)\]\(([^)\s]+)\)$/;
+
+function renderInline(text: string): React.ReactNode[] {
+  const out: React.ReactNode[] = [];
+  let lastIndex = 0;
+  let key = 0;
+  text.replace(INLINE_TOKEN_RE, (match, _g, offset: number) => {
+    if (offset > lastIndex) out.push(text.slice(lastIndex, offset));
+
+    if (match.startsWith("**") && match.endsWith("**")) {
+      out.push(<strong key={key++}>{match.slice(2, -2)}</strong>);
+    } else if (match.startsWith("*") && match.endsWith("*")) {
+      out.push(<em key={key++}>{match.slice(1, -1)}</em>);
+    } else if (match.startsWith("`") && match.endsWith("`")) {
+      out.push(<code key={key++} className="rp-release-note-code">{match.slice(1, -1)}</code>);
+    } else if (match.startsWith("[")) {
+      const m = match.match(LINK_RE);
+      if (m) {
+        out.push(
+          <a key={key++} href={m[2]} target="_blank" rel="noopener noreferrer" className="rp-release-note-link">
+            {m[1]}
+          </a>
+        );
+      } else {
+        out.push(match);
+      }
+    } else if (/^https?:\/\//.test(match)) {
+      out.push(
+        <a key={key++} href={match} target="_blank" rel="noopener noreferrer" className="rp-release-note-link">
+          {match}
+        </a>
+      );
+    } else {
+      out.push(match);
+    }
+
+    lastIndex = offset + match.length;
+    return match;
+  });
+  if (lastIndex < text.length) out.push(text.slice(lastIndex));
+  return out;
+}
+
 function renderBodyLine(line: string, i: number) {
   if (line.startsWith("## ")) {
-    return <h3 key={i} className="rp-release-note-heading">{line.slice(3)}</h3>;
+    return <h3 key={i} className="rp-release-note-heading">{renderInline(line.slice(3))}</h3>;
   }
   if (line.startsWith("### ")) {
-    return <h4 key={i} className="rp-release-note-subheading">{line.slice(4)}</h4>;
+    return <h4 key={i} className="rp-release-note-subheading">{renderInline(line.slice(4))}</h4>;
   }
   if (line.startsWith("- ") || line.startsWith("* ")) {
-    return <li key={i} className="rp-release-note-item">{line.slice(2)}</li>;
+    return <li key={i} className="rp-release-note-item">{renderInline(line.slice(2))}</li>;
   }
-  return <p key={i} className="rp-release-note-para">{line}</p>;
+  return <p key={i} className="rp-release-note-para">{renderInline(line)}</p>;
 }
 
 // ── Sub-components ────────────────────────────────────────────────────────────
@@ -90,7 +178,9 @@ function ReleaseSkeleton() {
 }
 
 function ReleaseCard({ release, latest }: { release: import("./hooks/useGitHubReleases").Release; latest: boolean }) {
-  const classified = classifyAssets(release.assets);
+  const installerAssets = release.assets.filter((a) => !isAuxiliaryAsset(a.name));
+  const classified = classifyAssets(installerAssets);
+  const checksumAsset = pickChecksumAsset(release.assets);
   const lines = parseBody(release.body || "");
   // Wrap consecutive li elements
   const rendered: React.ReactNode[] = [];
@@ -145,22 +235,37 @@ function ReleaseCard({ release, latest }: { release: import("./hooks/useGitHubRe
         <div className="rp-assets">
           <p className="rp-assets-label">Downloads</p>
           <div className="rp-assets-grid">
-            {classified.map(({ platform, label, icon, asset }) => (
+            {classified.map(({ platform, platformLabel, variantLabel, icon, asset }) => (
               <a
-                key={platform}
+                key={asset.name}
                 href={asset.browser_download_url}
                 className="rp-asset-btn"
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label={`Download ${platformLabel} ${variantLabel || ""} (${formatBytes(asset.size) || "size unknown"}) for ${platform}`}
               >
-                <span className="rp-asset-icon">{icon}</span>
-                <span className="rp-asset-name">{label}</span>
+                <span className="rp-asset-icon" aria-hidden="true">{icon}</span>
+                <span className="rp-asset-name">{platformLabel}</span>
+                {variantLabel && (
+                  <span className="rp-asset-variant">{variantLabel}</span>
+                )}
                 {asset.size > 0 && (
                   <span className="rp-asset-size">{formatBytes(asset.size)}</span>
                 )}
               </a>
             ))}
           </div>
+          {checksumAsset && (
+            <a
+              href={checksumAsset.browser_download_url}
+              className="rp-checksums-link"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <ShieldCheck size={12} aria-hidden="true" />
+              Verify with SHA-256 checksums
+            </a>
+          )}
         </div>
       )}
     </article>
@@ -171,29 +276,48 @@ function ReleaseCard({ release, latest }: { release: import("./hooks/useGitHubRe
 
 function ReleasesPage() {
   const { loading, releases, error } = useGitHubReleases();
+  const logoSrc = `${import.meta.env.BASE_URL}logo.png`;
+  const [menuOpen, setMenuOpen] = useState(false);
+  const closeMenu = () => setMenuOpen(false);
 
   return (
     <div className="rp-layout">
       {/* Navbar */}
-      <nav className="rp-navbar">
+      <nav className="rp-navbar" aria-label="Primary">
         <div className="rp-navbar-content">
-          <a href="index.html" className="rp-logo">
-            <span className="ff-logo-dot" />
+          <a href="index.html" className="rp-logo" aria-label="Flowfolio home">
+            <img src={logoSrc} alt="" className="ff-brand-icon" width={22} height={22} />
             Flowfolio
           </a>
-          <ul className="rp-nav-links">
-            <li><a href="index.html#features">Features</a></li>
-            <li><a href="features.html">Docs</a></li>
-            <li><a href="privacy.html">Privacy</a></li>
-            <li><a href="index.html#download">Download</a></li>
+          <button
+            type="button"
+            className="rp-menu-btn"
+            aria-label={menuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={menuOpen}
+            aria-controls="rp-nav-links"
+            onClick={() => setMenuOpen((v) => !v)}
+          >
+            {menuOpen ? <X size={18} aria-hidden="true" /> : <Menu size={18} aria-hidden="true" />}
+          </button>
+          <ul
+            id="rp-nav-links"
+            className={`rp-nav-links${menuOpen ? " rp-nav-links--open" : ""}`}
+          >
+            <li><a href="index.html#features" onClick={closeMenu}>Features</a></li>
+            <li><a href="features.html" onClick={closeMenu}>Docs</a></li>
+            <li><a href="privacy.html" onClick={closeMenu}>Privacy</a></li>
+            <li><a href="releases.html" aria-current="page" onClick={closeMenu}>Releases</a></li>
+            <li><a href="index.html#download" onClick={closeMenu}>Download</a></li>
             <li>
               <a
                 href="https://github.com/Vincrypt-Management/flowfolio"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="rp-nav-btn"
+                aria-label="Flowfolio on GitHub (opens in new tab)"
+                onClick={closeMenu}
               >
-                <span className="ff-nav-dot" />
+                <Github size={14} aria-hidden="true" />
                 GitHub
               </a>
             </li>
@@ -217,8 +341,8 @@ function ReleasesPage() {
       <main className="rp-main">
         <div className="rp-main-inner">
           {error && (
-            <div className="rp-notice">
-              Showing cached release data — GitHub API unavailable.
+            <div className="rp-notice" role="status">
+              GitHub API unavailable — showing last-known release data.
             </div>
           )}
 
@@ -240,17 +364,17 @@ function ReleasesPage() {
         <div className="rp-footer-content">
           <div className="rp-footer-brand">
             <span className="rp-footer-logo">
-              <span className="ff-logo-dot" />
+              <img src={logoSrc} alt="" className="ff-brand-icon" width={20} height={20} />
               Flowfolio
             </span>
             <span className="rp-footer-tagline">Made for privacy-conscious investors.</span>
           </div>
-          <div className="rp-footer-links">
+          <nav className="rp-footer-links" aria-label="Footer">
             <a href="https://github.com/Vincrypt-Management/flowfolio" target="_blank" rel="noopener noreferrer">GitHub</a>
             <a href="features.html">Documentation</a>
             <a href="index.html">Home</a>
             <a href="privacy.html">Privacy</a>
-          </div>
+          </nav>
         </div>
       </footer>
     </div>

@@ -1,4 +1,5 @@
-import { Monitor, Activity, Server, Cloud, X, ArrowRight, Github } from "lucide-react";
+import { useState } from "react";
+import { Monitor, Activity, Server, Cloud, X, ArrowRight, Github, Menu } from "lucide-react";
 import "./PrivacyPage.css";
 
 // ── Never-do items ─────────────────────────────────────────────────────────────
@@ -50,21 +51,37 @@ const verifyItems = [
 // ── Page ──────────────────────────────────────────────────────────────────────
 
 function PrivacyPage() {
+  const logoSrc = `${import.meta.env.BASE_URL}logo.png`;
+  const [menuOpen, setMenuOpen] = useState(false);
+  const closeMenu = () => setMenuOpen(false);
   return (
     <div>
       {/* Navbar */}
       <div className="pp-navbar-wrap">
-        <nav className="pp-navbar">
-          <a href="index.html" className="pp-nav-logo">
-            <span className="pp-nav-dot" />
+        <nav className="pp-navbar" aria-label="Primary">
+          <a href="index.html" className="pp-nav-logo" aria-label="Flowfolio home">
+            <img src={logoSrc} alt="" className="ff-brand-icon" width={22} height={22} />
             Flowfolio
           </a>
-          <ul className="pp-nav-links">
-            <li><a href="index.html#features">Features</a></li>
-            <li><a href="features.html">Docs</a></li>
-            <li><a href="releases.html">Releases</a></li>
-            <li><a href="privacy.html" className="active">Privacy</a></li>
-            <li><a href="index.html#download">Download</a></li>
+          <button
+            type="button"
+            className="pp-menu-btn"
+            aria-label={menuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={menuOpen}
+            aria-controls="pp-nav-links"
+            onClick={() => setMenuOpen((v) => !v)}
+          >
+            {menuOpen ? <X size={18} aria-hidden="true" /> : <Menu size={18} aria-hidden="true" />}
+          </button>
+          <ul
+            id="pp-nav-links"
+            className={`pp-nav-links${menuOpen ? " pp-nav-links--open" : ""}`}
+          >
+            <li><a href="index.html#features" onClick={closeMenu}>Features</a></li>
+            <li><a href="features.html" onClick={closeMenu}>Docs</a></li>
+            <li><a href="releases.html" onClick={closeMenu}>Releases</a></li>
+            <li><a href="privacy.html" className="active" aria-current="page" onClick={closeMenu}>Privacy</a></li>
+            <li><a href="index.html#download" onClick={closeMenu}>Download</a></li>
           </ul>
         </nav>
       </div>
@@ -83,7 +100,7 @@ function PrivacyPage() {
           <div className="pp-hero-badges">
             {["No network on startup", "No accounts required", "Auditable source code", "Local filesystem only"].map((label) => (
               <span key={label} className="pp-hero-badge">
-                <span className="pp-badge-dot" />
+                <span className="pp-badge-dot" aria-hidden="true" />
                 {label}
               </span>
             ))}
@@ -171,7 +188,7 @@ function PrivacyPage() {
 
       {/* Footer */}
       <footer className="pp-footer">
-        <span>&copy; {new Date().getFullYear()} Vincrypt</span>
+        <span>&copy; {new Date().getFullYear()} Flowfolio</span>
         <ul className="pp-footer-links">
           <li><a href="index.html#features">Features</a></li>
           <li><a href="features.html">Docs</a></li>

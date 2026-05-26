@@ -214,6 +214,7 @@ export function useGitHubReleases(): UseGitHubReleasesResult {
         if ((err as Error).name === "AbortError") {
           if (isTimedOut) {
             console.warn("[useGitHubReleases] Fetch timed out after 8s, using fallback");
+            setError(true);
           }
           return;
         }

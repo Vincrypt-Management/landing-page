@@ -3,7 +3,7 @@ import react from "@vitejs/plugin-react";
 import { resolve } from "path";
 
 const REPO = "Vincrypt-Management/flowfolio";
-const STATIC_FALLBACK_VERSION = "v0.2.2";
+const STATIC_FALLBACK_VERSION = "v0.4.6";
 
 async function fetchLatestVersion(): Promise<string> {
   try {

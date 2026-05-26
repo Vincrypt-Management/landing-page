@@ -63,7 +63,16 @@ function Hero() {
       {/* Product video — full width, outside inner max-width */}
       <div className="ff-hero-video-wrap">
         <div className="ff-hero-video-container">
-          <video src={demoVideo} autoPlay loop muted playsInline />
+          <video
+            src={demoVideo}
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="metadata"
+            aria-hidden="true"
+            tabIndex={-1}
+          />
         </div>
       </div>
     </section>

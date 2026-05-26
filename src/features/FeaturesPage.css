@@ -5,6 +5,17 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
+:root {
+  --ff-bg: #080808;
+  --ff-bg-card: #0d0d0d;
+  --ff-border: rgba(255, 255, 255, 0.07);
+  --ff-text: #ffffff;
+  --ff-muted: #6a6a6a;
+  --ff-green: #00e599;
+  --ff-green-dim: rgba(0, 229, 153, 0.08);
+  --ff-green-border: rgba(0, 229, 153, 0.18);
+}
+
 /* Reset */
 *,
 *::before,
@@ -1517,4 +1528,31 @@ h4, h5, h6 {
   line-height: 1.7;
   border-top: 1px solid rgba(255,255,255,0.05);
   padding-top: 14px;
+}
+
+.ff-brand-icon {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+  flex-shrink: 0;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+/* Visible keyboard focus */
+.features-layout a:focus-visible,
+.features-layout button:focus-visible {
+  outline: 2px solid var(--ff-green, #00e599);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .features-sidebar { transition: none !important; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
 }

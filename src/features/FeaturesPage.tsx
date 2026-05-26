@@ -84,6 +84,7 @@ function FeaturesPage() {
   const [activeSection, setActiveSection] = useState("prologue");
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [faqOpen, setFaqOpen] = useState<number | null>(null);
+  const logoSrc = `${import.meta.env.BASE_URL}logo.png`;
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -118,17 +119,19 @@ function FeaturesPage() {
           <button
             className="features-menu-btn"
             onClick={() => setSidebarOpen(!sidebarOpen)}
-            aria-label="Toggle sidebar"
+            aria-label={sidebarOpen ? "Close documentation sidebar" : "Open documentation sidebar"}
+            aria-expanded={sidebarOpen}
+            aria-controls="features-sidebar"
           >
-            {sidebarOpen ? <X size={20} /> : <Menu size={20} />}
+            {sidebarOpen ? <X size={20} aria-hidden="true" /> : <Menu size={20} aria-hidden="true" />}
           </button>
-          <a href="index.html" className="features-back">
-            <span className="ff-logo-dot" />
+          <a href="index.html" className="features-back" aria-label="Flowfolio home">
+            <img src={logoSrc} alt="" className="ff-brand-icon" width={22} height={22} />
             <span>Flowfolio</span>
           </a>
         </div>
         <span className="features-topbar-title">Documentation</span>
-        <div className="features-topbar-right">
+        <nav className="features-topbar-right" aria-label="Primary">
           <a href="releases.html" className="features-topbar-link">
             Releases
           </a>
@@ -140,17 +143,22 @@ function FeaturesPage() {
             target="_blank"
             rel="noopener noreferrer"
             className="features-topbar-link"
+            aria-label="Flowfolio on GitHub (opens in new tab)"
           >
-            <Github size={16} />
+            <Github size={16} aria-hidden="true" />
           </a>
-        </div>
+        </nav>
       </header>
 
       {/* Sidebar */}
-      <aside className={`features-sidebar ${sidebarOpen ? "open" : ""}`}>
+      <aside
+        id="features-sidebar"
+        className={`features-sidebar ${sidebarOpen ? "open" : ""}`}
+        aria-label="Documentation sections"
+      >
         <nav className="features-sidebar-nav">
           <div className="features-sidebar-heading">
-            <span className="ff-logo-dot" />
+            <img src={logoSrc} alt="" className="ff-brand-icon" width={20} height={20} />
             Documentation
           </div>
           {sections.map(({ id, label, icon }) => (
@@ -158,10 +166,11 @@ function FeaturesPage() {
               key={id}
               className={`features-sidebar-item ${activeSection === id ? "active" : ""}`}
               onClick={() => scrollTo(id)}
+              aria-current={activeSection === id ? "true" : undefined}
             >
-              {icon}
+              <span aria-hidden="true">{icon}</span>
               <span>{label}</span>
-              {activeSection === id && <ChevronRight size={14} className="features-sidebar-indicator" />}
+              {activeSection === id && <ChevronRight size={14} className="features-sidebar-indicator" aria-hidden="true" />}
             </button>
           ))}
         </nav>
@@ -1278,23 +1287,31 @@ PortfolioConfig {
             <p className="features-faq-eyebrow">FAQ</p>
             <h2 className="features-faq-title">Common questions.</h2>
             <div className="features-faq-list">
-              {FAQ_ITEMS.map((item, i) => (
-                <div
-                  key={i}
-                  className={`features-faq-item${faqOpen === i ? " features-faq-item--open" : ""}`}
-                >
-                  <button
-                    className="features-faq-question"
-                    onClick={() => setFaqOpen(faqOpen === i ? null : i)}
+              {FAQ_ITEMS.map((item, i) => {
+                const isOpen = faqOpen === i;
+                const answerId = `faq-answer-${i}`;
+                return (
+                  <div
+                    key={i}
+                    className={`features-faq-item${isOpen ? " features-faq-item--open" : ""}`}
                   >
-                    {item.q}
-                    {faqOpen === i ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
-                  </button>
-                  {faqOpen === i && (
-                    <div className="features-faq-answer">{item.a}</div>
-                  )}
-                </div>
-              ))}
+                    <button
+                      className="features-faq-question"
+                      onClick={() => setFaqOpen(isOpen ? null : i)}
+                      aria-expanded={isOpen}
+                      aria-controls={answerId}
+                    >
+                      <span>{item.q}</span>
+                      {isOpen
+                        ? <ChevronUp size={14} aria-hidden="true" />
+                        : <ChevronDown size={14} aria-hidden="true" />}
+                    </button>
+                    {isOpen && (
+                      <div id={answerId} className="features-faq-answer">{item.a}</div>
+                    )}
+                  </div>
+                );
+              })}
             </div>
           </div>
         </section>
@@ -1318,28 +1335,29 @@ PortfolioConfig {
         <footer className="features-footer">
           <div className="features-footer-content">
             <span className="features-footer-brand">
-              <span className="ff-logo-dot" />
+              <img src={logoSrc} alt="" className="ff-brand-icon" width={20} height={20} />
               Flowfolio
             </span>
             <span className="features-footer-tagline">
               Vibe-investing, but like vibe-coding.
             </span>
           </div>
-          <div className="features-footer-links">
+          <nav className="features-footer-links" aria-label="Footer">
             <a
               href="https://github.com/Vincrypt-Management/flowfolio"
               target="_blank"
               rel="noopener noreferrer"
             >
-              <Github size={16} />
+              <Github size={16} aria-hidden="true" />
               GitHub
             </a>
             <a href="index.html">
-              <FileText size={16} />
+              <FileText size={16} aria-hidden="true" />
               Home
             </a>
+            <a href="releases.html">Releases</a>
             <a href="privacy.html">Privacy</a>
-          </div>
+          </nav>
         </footer>
       </main>
     </div>

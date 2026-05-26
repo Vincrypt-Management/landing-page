@@ -9,8 +9,9 @@ import Footer from "./components/Footer";
 function LandingPage() {
   return (
     <div className="landing-page">
+      <a href="#main-content" className="ff-skip-link">Skip to main content</a>
       <Navbar />
-      <main>
+      <main id="main-content">
         <Hero />
         <FeatureGrid />
         <ValueProps />
