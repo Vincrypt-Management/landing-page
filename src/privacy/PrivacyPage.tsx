@@ -128,42 +128,44 @@ function PrivacyPage() {
         <section className="pp-section">
           <h2 className="pp-section-title">How your data flows</h2>
           <div className="pp-arch-diagram">
-            {/* Your Machine */}
-            <div className="pp-arch-box green-border">
-              <div className="pp-arch-box-icon"><Monitor size={18} /></div>
-              <div className="pp-arch-box-label">Your Machine</div>
-              <div className="pp-arch-box-sub">App + local DB</div>
+            {/* Allowed flow */}
+            <div className="pp-arch-flow">
+              <div className="pp-arch-box green-border">
+                <div className="pp-arch-box-icon" aria-hidden="true"><Monitor size={18} /></div>
+                <div className="pp-arch-box-label">Your Machine</div>
+                <div className="pp-arch-box-sub">App + local DB</div>
+              </div>
+
+              <div className="pp-arch-connector" aria-hidden="true">
+                <span className="pp-arch-connector-label">market data only</span>
+                <div className="pp-arch-connector-line">
+                  <ArrowRight size={14} className="pp-arch-connector-arrow" />
+                </div>
+              </div>
+
+              <div className="pp-arch-box">
+                <div className="pp-arch-box-icon" aria-hidden="true"><Activity size={18} /></div>
+                <div className="pp-arch-box-label">Market APIs</div>
+                <div className="pp-arch-box-sub">Prices, fundamentals</div>
+              </div>
             </div>
 
-            {/* Arrow */}
-            <div className="pp-arch-arrow">
-              <div className="pp-arch-arrow-line" />
-              <div className="pp-arch-arrow-label">market data only</div>
-            </div>
-
-            {/* Market APIs */}
-            <div className="pp-arch-box">
-              <div className="pp-arch-box-icon"><Activity size={18} /></div>
-              <div className="pp-arch-box-label">Market APIs</div>
-              <div className="pp-arch-box-sub">Prices, fundamentals</div>
-            </div>
-
-            {/* Spacer */}
-            <div style={{ width: 24 }} />
-
-            {/* No Vincrypt servers */}
-            <div className="pp-arch-blocked">
-              <div className="pp-arch-blocked-icon"><Server size={16} /></div>
-              <div className="pp-arch-blocked-label">No Vincrypt servers</div>
-            </div>
-
-            {/* Spacer */}
-            <div style={{ width: 8 }} />
-
-            {/* No cloud storage */}
-            <div className="pp-arch-blocked">
-              <div className="pp-arch-blocked-icon"><Cloud size={16} /></div>
-              <div className="pp-arch-blocked-label">No cloud storage</div>
+            {/* Never happens */}
+            <div className="pp-arch-never">
+              <span className="pp-arch-never-label">
+                <X size={11} aria-hidden="true" />
+                Never happens
+              </span>
+              <div className="pp-arch-never-list">
+                <div className="pp-arch-blocked">
+                  <div className="pp-arch-blocked-icon" aria-hidden="true"><Server size={16} /></div>
+                  <div className="pp-arch-blocked-label">No Vincrypt servers</div>
+                </div>
+                <div className="pp-arch-blocked">
+                  <div className="pp-arch-blocked-icon" aria-hidden="true"><Cloud size={16} /></div>
+                  <div className="pp-arch-blocked-label">No cloud storage</div>
+                </div>
+              </div>
             </div>
           </div>
         </section>

@@ -210,17 +210,24 @@ body {
 /* Architecture diagram */
 .pp-arch-diagram {
   display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 36px;
 }
+
+.pp-arch-flow {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
 .pp-arch-box {
   background: var(--ff-bg-card);
   border: 1px solid var(--ff-border);
-  border-radius: 8px;
-  padding: 16px 20px;
+  border-radius: 10px;
+  padding: 20px 24px;
   text-align: center;
-  min-width: 110px;
+  min-width: 160px;
+  flex-shrink: 0;
 }
 .pp-arch-box.green-border { border-color: var(--ff-green-border); }
 .pp-arch-box-icon {
@@ -230,35 +237,83 @@ body {
   color: var(--ff-muted);
 }
 .pp-arch-box.green-border .pp-arch-box-icon { color: var(--ff-green); }
-.pp-arch-box-label { font-size: 12px; font-weight: 500; }
-.pp-arch-box-sub { font-size: 10px; color: var(--ff-muted); margin-top: 4px; }
-.pp-arch-arrow {
+.pp-arch-box-label { font-size: 13px; font-weight: 500; }
+.pp-arch-box-sub { font-size: 11px; color: var(--ff-muted); margin-top: 4px; }
+
+.pp-arch-connector {
+  flex: 1;
+  min-width: 80px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
+  gap: 6px;
 }
-.pp-arch-arrow-line {
-  width: 32px;
+.pp-arch-connector-label {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ff-muted);
+  white-space: nowrap;
+}
+.pp-arch-connector-line {
+  position: relative;
+  width: 100%;
   height: 1px;
-  background: var(--ff-border);
+  background: linear-gradient(
+    to right,
+    var(--ff-green-border) 0%,
+    var(--ff-green) 100%
+  );
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
 }
-.pp-arch-arrow-label { font-size: 9px; color: var(--ff-muted); white-space: nowrap; }
+.pp-arch-connector-arrow {
+  color: var(--ff-green);
+  transform: translateX(2px);
+}
+
+.pp-arch-never {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-top: 24px;
+  border-top: 1px dashed rgba(255, 80, 80, 0.18);
+}
+.pp-arch-never-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #ff6b6b;
+}
+.pp-arch-never-list {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
 .pp-arch-blocked {
+  flex: 1;
+  min-width: 200px;
   background: rgba(255, 80, 80, 0.05);
   border: 1px solid rgba(255, 80, 80, 0.15);
-  border-radius: 8px;
-  padding: 16px 20px;
-  text-align: center;
-  min-width: 90px;
+  border-radius: 10px;
+  padding: 18px 22px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 .pp-arch-blocked-icon {
   display: flex;
   justify-content: center;
-  margin-bottom: 6px;
   color: #ff6b6b;
+  flex-shrink: 0;
 }
-.pp-arch-blocked-label { font-size: 11px; color: #ff6b6b; line-height: 1.4; }
+.pp-arch-blocked-label { font-size: 12px; color: #ff6b6b; line-height: 1.4; font-weight: 500; }
 
 /* Verify list */
 .pp-verify-list {
@@ -333,7 +388,8 @@ body {
 
 /* Responsive — tablet */
 @media (max-width: 900px) {
-  .pp-arch-diagram { row-gap: 16px; }
+  .pp-arch-flow { gap: 16px; }
+  .pp-arch-box { min-width: 140px; padding: 16px 18px; }
 }
 
 @media (max-width: 600px) {
@@ -374,24 +430,29 @@ body {
   .pp-hero { padding: 56px 0 40px; }
   .pp-section { padding: 40px 0; }
   .pp-never-grid { grid-template-columns: 1fr; }
-  .pp-arch-diagram {
+  .pp-arch-diagram { gap: 28px; }
+  .pp-arch-flow {
     flex-direction: column;
     align-items: stretch;
-    gap: 12px;
+    gap: 14px;
   }
-  .pp-arch-box,
-  .pp-arch-blocked { width: 100%; }
-  .pp-arch-arrow {
+  .pp-arch-box { min-width: 0; width: 100%; }
+  .pp-arch-connector {
     flex-direction: row;
-    align-items: center;
-    margin: 4px 0;
+    gap: 10px;
+    min-height: 28px;
   }
-  .pp-arch-arrow-line {
-    width: 1px;
-    height: 24px;
-    background: var(--ff-border);
+  .pp-arch-connector-label { white-space: normal; }
+  .pp-arch-connector-line {
+    flex: 1;
+    background: linear-gradient(
+      to right,
+      var(--ff-green-border) 0%,
+      var(--ff-green) 100%
+    );
   }
-  .pp-arch-arrow-label { white-space: normal; }
+  .pp-arch-never-list { flex-direction: column; }
+  .pp-arch-blocked { min-width: 0; width: 100%; }
   .pp-verify-item { flex-direction: column; align-items: flex-start; gap: 8px; }
   .pp-verify-item-right { white-space: normal; }
   .pp-footer {
